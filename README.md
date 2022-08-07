@@ -6,3 +6,5 @@ there also >[readme](https://github.com/Mmohet/Mmohet.github.io/blob/character-a
 
 !!The snd and sff is so big so please go to:https://pan.baidu.com/s/1DxiaorEHDL7rEQ93I9KyRg?pwd=2w71 the code is: 2w71
 You can use google translate to get what it mean.
+
+I'm trying to make there on it. But now, please use that link to get the character
