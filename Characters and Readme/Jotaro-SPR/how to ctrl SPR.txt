@@ -1,0 +1,59 @@
+Here is the details of the recruitment form:
+
+Default keys:
+A = J
+B = K
+C = L
+
+X = U
+Y = I
+z = O
+
+S = P
+
+
+As above, the default button for the main program, the move table below uses abcxyzs, please convert it yourself
+
+General attack:
+A: Four-stage body attack
+B: Three-stage stand-in attack
+C: Double hits, can be connected to the oblique top, and can be connected to skills.
+Press and hold down ↓ + A: two-stage body attack, can be jumped
+Press and hold down ↓ + B: Denglong Ascension Fist
+Press and hold down ↓ + C: continuous hits diagonally upwards, you can continue hitting diagonally upwards (higher damage)
+Aerial A: knee top, then B can use the second segment
+Press and hold down ↓ + A in the air: the avatar sprints in a flash, which is used for air combos. If the distance to the enemy is too large, the flash cannot be flashed.
+Aerial B: Summons the avatar of the dragon to kick, if at a suitable distance, the avatar will appear in front of the enemy to attack
+Press and hold down ↓ + B in the air: the same as the ground ↓B, Denglongquan
+Air C, air ↓C are the same as the ground
+Special attack:
+The last four paragraphs of A are randomly connected to C: continuous play with dio
+
+Skill:
+Default gas consumption is 1000
+Backward A: Stand on the body, counterattack is a heavy punch
+Front A: A coordinated continuous fight with the freedom of the stone, only consumes 750 ki
+Next Post B: Multiple Meteorite Launches
+Down and front B: skill hits, if the previous paragraph is ↓C, it will become special
+Rear C: Slow time, can be charged to extend the time
+Down Front C: Beam aiming attack
+X: Stand-in Qigong Wave
+Press and hold down ↓ + X: the second one, the counterattack is a qigong wave that erupts underground
+Press and hold down ↓ + Y: dio aids and protects, the flying knife is general
+
+special:
+Y: Dodge to the back of the enemy
+Press and hold Y: when you are on the body, after triggering, it will flash behind the enemy and knock the enemy into the wall.
+←/→ + Y: teleport left/right
+Z: Stop at time, the time is 10 seconds, there will be a prompt when the time is less than 7 seconds, at this time, you can stop at the end in advance
+(if their both sides are SPR, they can stop each other to achieve the battle in the time stop)
+Press and hold down ↓ + Z: beyond heaven, the front is 8 stages, each stage consumes 500 qi, and the kill is super instant death
+S: gas storage (can use slow descent in the air), if the HP is less than 400, the gas gathering speed will be accelerated, and if the gas volume is less than 1500, the gas gathering speed will also be increased again.
+(When you stop, the gas gathering speed will be weakened)
+Press and hold down ↓ + S: super kill
+
+PS: The underlying code of the characters is written by the author, and the only small part of the special effects are transferred from other characters, except for the vicious and small part of the time stop
+(Don't talk about those discarded ones, those are just for fun and don't plan to be called out) (Shizhang borrowed Diego's because it is an early product)
+
+The switches are all in -2.cns, please adjust at your own discretion
+Characters 7-12p are in full-on mode (7-12p just automatically turns on the switch, if you don't want to start beyond heaven, you can manually turn on the switch, and then choose 1-6p to play), no viewing supplement
