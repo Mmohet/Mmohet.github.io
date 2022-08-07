@@ -1,0 +1,904 @@
+[Statedef 67667]
+type = S
+movetype = I
+physics = S
+anim = cond(pos y = 0,201101,201102) 
+
+[State 0, VarSet]
+type = VarSet
+trigger1 = 1
+v = 13    
+value = 2
+;ignorehitpause = 
+;persistent = 
+
+
+[State 0, NotHitBy]
+type = NotHitBy
+trigger1 = 1
+value = SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT
+time = 7
+ignorehitpause = 1
+
+[State 0, NotHitBy]
+type = NotHitBy
+trigger1 = 1
+value2 = SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT
+time = 7
+ignorehitpause = 1
+
+[State 0, SuperPause]
+type = SuperPause
+trigger1 = time = 0
+time = 20
+movetime = 20
+anim = -1
+sound = -1
+pos = 32,-80
+darken = 0
+unhittable = 1
+
+[State 0, BGPalFX]
+type = BGPalFX
+trigger1 = 1;var(50)>0&&root,stateno!=1300;&&root,stateno!=710
+time = 1
+invertall = 0
+color = 30
+ignorehitpause = 1
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = 1
+x = 0
+y = 0
+;ignorehitpause = 
+;persistent = 
+
+
+[State 0, VelSet]
+type = posadd
+trigger1 =  p2dist y < 0;&&time <= 10
+x =1
+y =-2.5
+ignorehitpause = 1
+
+[State 0, VelSet]
+type = posadd
+trigger1 =  pos y < 0;&&time <= 10
+x =  2
+y =2
+ignorehitpause = 1
+
+[State 0, VelSet]
+type = posadd
+trigger1 =  pos y = 0;&&time <= 10
+x =  2
+y =0;target,rootdist y * 0.2 + 2
+ignorehitpause = 1
+
+[State 0, ChangeAnim]
+type = null;ChangeAnim
+trigger1 = time = 0
+value = cond(pos y >= 0,67667+(random%3),67667)
+ignorehitpause = 1
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S5,1
+volumescale = 100
+channel = 77
+freqmul = 1.0
+loop = 0
+pan = 0
+ignorehitpause = 1
+
+
+[State 0, New Speed FX]
+type = null;Explod
+;triggerall = time > 5
+trigger1 = vel x =1.5 && vel y =-2.5;p2dist y < 0
+anim = 7016
+ID = 7016
+pos = 5-random%25,-5-random%40
+postype = p1
+facing = 1
+vfacing = 1
+bindtime = 3
+vel = -2,0
+removetime = -2
+scale = 0.1,0.1
+sprpriority = 2
+ontop = 1
+ownpal = 1
+removeongethit = 1
+pausemovetime = 9999
+supermovetime = 9999
+ignorehitpause = 1		
+angle = -135
+
+[State 0, New Speed FX]
+type = null;Explod
+;triggerall = time > 5
+trigger1 = vel x =2 && vel y =2; pos y < 0 && p2dist y >= 0
+anim = 7016
+ID = 7016
+pos = -5-random%25,-5-random%40
+postype = p1
+facing = 1
+vfacing = 1
+bindtime = 3
+vel = -2,0
+removetime = -2
+scale = 0.1,0.1
+sprpriority = 2
+ontop = 1
+ownpal = 1
+removeongethit = 1
+pausemovetime = 9999
+supermovetime = 9999
+angle = 135
+
+
+
+[State 0, New Speed FX]
+type = Explod
+;triggerall = time > 5
+trigger1 =  1;vel x =2 && vel y =0;pos y = 0
+anim = 7016
+ID = 7016
+pos = 5-random%25,-5-random%40
+postype = p1
+facing = 1
+vfacing = 1
+bindtime = 3
+vel = -2,0
+removetime = -2
+scale = 0.1,0.1
+sprpriority = 2
+ontop = 1
+ownpal = 1
+removeongethit = 1
+pausemovetime = 9999
+supermovetime = 9999
+ignorehitpause = 1		
+;angle = ((target,rootdist y) /0.5)*-45; + ((p2dist y)%(p2dist x))) *45 
+
+
+[State 0, New Speed FX]
+type =null; Explod
+;triggerall = time > 5
+trigger1 = target, pos y < 0
+anim = 7016
+ID = 7016
+pos = 5-random%25,10-random%40
+postype = p1
+facing = 1
+vfacing = 1
+bindtime = 3
+vel = -2,0
+removetime = -2
+scale = 0.1,0.1
+sprpriority = 2
+ontop = 1
+ownpal = 1
+removeongethit = 1
+pausemovetime = 9999
+supermovetime = 9999
+ignorehitpause = 1		
+;angle = ((p2dist y) /(p2dist x))*-45; + ((p2dist y)%(p2dist x))) *45 
+
+
+
+[State 0, ChangeState]
+type = ChangeState
+trigger1 = time = 20;animtime = 0
+value = cond(pos y < 0 ,0,50);0+50*(pos y < 0)
+ctrl = 1
+ignorehitpause = 1
+
+[Statedef 45256]
+type = A
+movetype = I
+physics = N
+
+[State 0, BindToRoot]
+type = BindToRoot
+trigger1 = 1
+pos = 0,0
+ignorehitpause = 1
+
+[State 0, ChangeAnim]
+type = ChangeAnim
+trigger1 = anim != 45256
+value = 45256
+ignorehitpause = 1
+
+
+
+
+[State 0, NotHitBy]
+type = NotHitBy
+trigger1 = 1
+value = SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT
+time = -1
+ignorehitpause = 1
+
+[State 0, NotHitBy]
+type = NotHitBy
+trigger1 = 1
+value2 = SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT
+time = -1
+ignorehitpause = 1
+
+[State 0, ReversalDef]
+type = ReversalDef
+trigger1 = root,movetype != H 
+triggerall = random < (root,var(18)*10)
+triggerall = root,var(13) = 0
+triggerall = root,stateno != 2001
+;trigger1 = root,statetype != A || root,pos Y = 0
+reversal.attr = SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT
+pausetime = 0,10
+;p2stateno = 5000
+;ignorehitpause = 1
+
+
+
+[State 0, TargetDrop]
+type = TargetDrop
+trigger1 =  root,var(13) = 1
+trigger2 = root,stateno = 67667 
+trigger3 = target,movetype != A
+triggerall = time > 1&&numtarget > 0 ;enemynear,movetype != A&&
+;|| root,movetype = H
+excludeID = -1
+keepone = 1
+ignorehitpause = 1
+
+[State 0, VarSet]
+type = VarSet
+trigger1 = var(7):= 0 || 1
+trigger1 = numtarget > 0
+v = 7
+value = 1
+ignorehitpause = 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;用于记忆敌方当身，但是会对当身陷阱造成误判，慎用
+;需要两个HELPER，而且HELPER常时存在
+;------------------------------------------------------------------------------
+;敌当身记录-1
+;------------------------------------------------------------------------------
+[Statedef 33500]
+anim = 9999
+ctrl = 0
+
+[State 33500]
+type=selfstate
+trigger1=!ishelper
+value=0
+
+[State 33500]
+Type = AssertSpecial
+Trigger1 = IsHelper
+flag = invisible
+
+[State 33500]
+type = Nothitby
+trigger1 = 1
+value = SCA
+
+[State 33500]
+type = BindToRoot
+trigger1 = 1
+time = 1
+pos = 0,0
+ignorehitpause = 1
+
+[State 33500]
+type = DisplayToClipboard
+trigger1 = 1
+text = "v14=%d,v15=%d,v16=%d,v17=%d,v18=%d,v19=%d\n"
+params = var(14),var(15),var(16),var(17),var(18),var(19)
+ignorehitpause = 1
+
+[State 33500]
+type = AppendToClipboard
+trigger1 = 1
+text = "root:rev=%d,time=%d,p2time=%d,p2stno=%d,p2prev=%d,reversed=%d"
+params = root,movereversed,root,time,EnemyNear(root,var(58)),Time,EnemyNear(root,var(58)),StateNo,EnemyNear(Root,var(58)),PrevStateNo,root,movereversed
+ignorehitpause = 1
+;-------------------------------------------------------------
+[State 敌当身记录开关-ON]
+Type = VarSet
+TriggerAll = EnemyNear(root,var(58)),StateNo >= 1000;敌方发动当身时，一般不会在1000号以下
+TriggerAll = Root,MoveReversed||Root,NumHelper(33501);当自己被当身时
+Trigger1 = var(14) = 0;如果第一个当身变量还没记录
+V = 19;var(19)为记录开启的开关，这个时候打开
+Value = 1
+IgnoreHitPause = 1
+
+[State 敌当身记忆1]
+Type = VarSet
+TriggerAll = EnemyNear(root,var(58)),StateNo >= 1000
+TriggerAll = EnemyNear(root,var(58)),Ctrl = 0
+TriggerAll =(Root,StateNo != [120,159]) && (Root,StateNo != [5000,5500])
+TriggerAll = var(19) = 1
+TriggerAll = var(14) = 0
+Trigger1 = Root,MoveType = H
+Trigger1 = Root,Time = 1
+Trigger2 = Root,MoveType!= H
+v = 14
+value = EnemyNear(Root,var(58)),PrevStateNo;自己被当身的第一时间记录下对方的prevstateno
+ignorehitpause = 1
+
+[State 敌当身记录开关-OFF]
+Type = VarSet
+TriggerAll = var(19) = 1
+Trigger1 = var(14)!= 0
+Trigger1 = var(15) = 0
+Trigger1 = var(16) = 0
+Trigger1 = var(17) = 0
+Trigger1 = var(18) = 0
+V = 19;当记录下第一个当身后，var(19)置0
+Value = 0
+IgnoreHitPause = 1
+;-------------------------------------------------------------
+[State 敵に当身ステート記憶ON]
+Type = VarSet
+TriggerAll = EnemyNear(root,var(58)),StateNo >= 1000
+TriggerAll = MoveReversed = 1||Root,NumHelper(33501)
+Trigger1 = var(14)!= 0
+Trigger1 = var(15) = 0
+V = 19
+Value = 1
+IgnoreHitPause = 1
+
+[State 2]
+Type = VarSet
+TriggerAll = EnemyNear(root,var(58)),StateNo >= 1000
+TriggerAll = EnemyNear(root,var(58)),Ctrl = 0
+TriggerAll =(Root,StateNo != [120,159]) && (Root,StateNo != [5000,5500])
+TriggerAll = var(19) = 1
+TriggerAll = var(14)!= 0
+TriggerAll = var(15) = 0
+Trigger1 = Root,MoveType = H
+Trigger1 = Root,Time = 1
+Trigger2 = Root,MoveType!= H
+v = 15
+value = EnemyNear(Root,var(58)),PrevStateNo
+ignorehitpause = 1
+
+[State 关闭-OFF]
+Type = VarSet
+TriggerAll = var(19) = 1
+Trigger1 = var(14)!= 0
+Trigger1 = var(15)!= 0
+Trigger1 = var(16) = 0
+Trigger1 = var(17) = 0
+Trigger1 = var(18) = 0
+V = 19
+Value = 0
+IgnoreHitPause = 1
+
+[State 初期化]
+Type = VarSet
+Trigger1 = var(15) = var(14)
+V = 15
+Value = 0
+IgnoreHitPause = 1
+;-------------------------------------------------------------
+[State 开ON]
+Type = VarSet
+TriggerAll = EnemyNear(root,var(58)),StateNo >= 1000
+TriggerAll = MoveReversed = 1||Root,NumHelper(33501)
+Trigger1 = var(14)!= 0
+Trigger1 = var(15)!= 0
+Trigger1 = var(16) = 0
+V = 19
+Value = 1
+IgnoreHitPause = 1
+
+[State 3]
+Type = VarSet
+TriggerAll = EnemyNear(root,var(58)),StateNo >= 1000
+TriggerAll = EnemyNear(root,var(58)),Ctrl = 0
+TriggerAll =(Root,StateNo != [120,159]) && (Root,StateNo != [5000,5500])
+TriggerAll = var(19) = 1
+TriggerAll = var(14)!= 0
+TriggerAll = var(15)!= 0
+TriggerAll = var(16) = 0
+Trigger1 = Root,MoveType = H
+Trigger1 = Root,Time = 1
+Trigger2 = Root,MoveType!= H
+v = 16
+value = EnemyNear(Root,var(58)),PrevStateNo
+ignorehitpause = 1
+
+[State 关闭-OFF]
+Type = VarSet
+TriggerAll = var(19) = 1
+Trigger1 = var(14)!= 0
+Trigger1 = var(15)!= 0
+Trigger1 = var(16)!= 0
+Trigger1 = var(17) = 0
+Trigger1 = var(18) = 0
+V = 19
+Value = 0
+IgnoreHitPause = 1
+
+[State 初期化]
+Type = VarSet
+Trigger1 = var(16) = var(15)
+Trigger2 = var(16) = var(14)
+V = 16
+Value = 0
+IgnoreHitPause = 1
+;-------------------------------------------------------------
+[State 关ON]
+Type = VarSet
+TriggerAll = EnemyNear(root,var(58)),StateNo >= 1000
+TriggerAll = MoveReversed = 1||Root,NumHelper(33501)
+Trigger1 = var(14)!= 0
+Trigger1 = var(15)!= 0
+Trigger1 = var(16)!= 0
+Trigger1 = var(17) = 0
+V = 19
+Value = 1
+IgnoreHitPause = 1
+
+[State 4]
+Type = VarSet
+TriggerAll = EnemyNear(root,var(58)),StateNo >= 1000
+TriggerAll = EnemyNear(root,var(58)),Ctrl = 0
+TriggerAll =(Root,StateNo != [120,159]) && (Root,StateNo != [5000,5500])
+TriggerAll = var(19) = 1
+TriggerAll = var(14)!= 0
+TriggerAll = var(15)!= 0
+TriggerAll = var(16)!= 0
+TriggerAll = var(17) = 0
+Trigger1 = Root,MoveType = H
+Trigger1 = Root,Time = 1
+Trigger2 = Root,MoveType!= H
+v = 17
+value = EnemyNear(Root,var(58)),PrevStateNo
+ignorehitpause = 1
+
+[State 关-OFF]
+Type = VarSet
+TriggerAll = var(19) = 1
+Trigger1 = var(14)!= 0
+Trigger1 = var(15)!= 0
+Trigger1 = var(16)!= 0
+Trigger1 = var(17)!= 0
+Trigger1 = var(18) = 0
+V = 19
+Value = 0
+IgnoreHitPause = 1
+
+[State 敵に当身ステート記憶初期化]
+Type = VarSet
+Trigger1 = var(17) = var(16)
+Trigger2 = var(17) = var(15)
+Trigger3 = var(17) = var(14)
+V = 17
+Value = 0
+IgnoreHitPause = 1
+;-------------------------------------------------------------
+[State 开-ON]
+Type = VarSet
+TriggerAll = EnemyNear(root,var(58)),StateNo >= 1000
+TriggerAll = MoveReversed = 1||Root,NumHelper(33501)
+Trigger1 = var(14)!= 0
+Trigger1 = var(15)!= 0
+Trigger1 = var(16)!= 0
+Trigger1 = var(17)!= 0
+Trigger1 = var(18) = 0
+V = 19
+Value = 1
+IgnoreHitPause = 1
+
+[State 5]
+Type = VarSet
+TriggerAll = EnemyNear(root,var(58)),StateNo >= 1000
+TriggerAll = EnemyNear(root,var(58)),Ctrl = 0
+TriggerAll =(Root,StateNo != [120,159]) && (Root,StateNo != [5000,5500])
+TriggerAll = var(19) = 1
+TriggerAll = var(14)!= 0
+TriggerAll = var(15)!= 0
+TriggerAll = var(16)!= 0
+TriggerAll = var(17)!= 0
+TriggerAll = var(18) = 0
+Trigger1 = Root,MoveType = H
+Trigger1 = Root,Time = 1
+Trigger2 = Root,MoveType!= H
+v = 18
+value = EnemyNear(Root,var(58)),PrevStateNo
+ignorehitpause = 1
+
+[State 关-OFF]s
+Type = VarSet
+TriggerAll = var(19) = 1
+Trigger1 = var(14)!= 0
+Trigger1 = var(15)!= 0
+Trigger1 = var(16)!= 0
+Trigger1 = var(17)!= 0
+Trigger1 = var(18)!= 0
+V = 19
+Value = 0
+IgnoreHitPause = 1
+
+[State 初期化]
+Type = VarSet
+Trigger1 = var(18) = var(17)
+Trigger2 = var(18) = var(16)
+Trigger3 = var(18) = var(15)
+Trigger4 = var(18) = var(14)
+V = 18
+Value = 0
+IgnoreHitPause = 1
+;-------------------------------------------------------------
+[State 初期化]
+type = null
+Trigger1 = var(18) = var(17) || var(18) = var(16) || var(18) = var(15) || var(18) = var(14)
+Trigger1 = var(18):= 0 || 1
+Trigger2 = var(17) = var(16) || var(17) = var(15) || var(17) = var(14)
+Trigger2 = var(17):= 0 || 1
+Trigger3 = var(16) = var(15) || var(16) = var(14)
+Trigger3 = var(16):= 0 || 1
+Trigger4 = var(15) = var(14)
+Trigger4 = var(15):= 0 || 1
+ignorehitpause = 1;因为记录方式的原因，会一瞬间把所有变量记录为第一个当身，用这一段将相同的状态号清零
+;-------------------------------------------------------------
+;下面五个部分用于将当身记录到本体，变量请根据自己人物变量使用情况进行更换
+[State 敌本体记忆]
+type = ParentVarSet
+trigger1 = var(14)
+fv = 10
+value = var(14)
+ignorehitpause = 1
+
+[State 敌本体记忆]
+type = ParentVarSet
+trigger1 = var(15)
+fv = 11
+value = var(15)
+ignorehitpause = 1
+
+[State 敌本体记忆]
+type = ParentVarSet
+trigger1 = var(16)
+fv = 12
+value = var(16)
+ignorehitpause = 1
+
+[State 敌本体记忆]
+type = ParentVarSet
+trigger1 = var(17)
+fv = 13
+value = var(17)
+ignorehitpause = 1
+
+[State 敌本体记忆]
+type = ParentVarSet
+trigger1 = var(18)
+fv = 14
+value = var(18)
+ignorehitpause = 1
+
+;如果只用上面的记忆器，因为MUGEN代码运行顺序的原因，无法记录到pausetime为0的当身
+;敌当身记录-
+[Statedef 33501];statedef号一定要比上面的大
+Type = A
+Ctrl = 0
+Anim = 9999
+Velset = 0,0
+Movetype = I
+Physics = N
+Sprpriority = 1
+
+[State 33501]
+type=selfstate
+trigger1=!ishelper
+value=0
+
+[State 33501]
+Type = AssertSpecial
+Trigger1 = IsHelper
+flag = invisible
+
+[State 33501]
+type = Nothitby
+trigger1 = 1
+value = SCA
+
+[State 33501]
+type = BindToRoot
+trigger1 = 1
+time = 1
+pos = 0,0
+ignorehitpause = 1
+
+[state 33501]
+type=destroyself
+trigger1=time=2
+trigger2=gametime=root,var(55);这里的var(55)根据本体变量使用情况进行更换
+
+;间者othk
+[Statedef 33502]
+movetype = A
+
+[State ]
+type = posset
+trigger1 = 1
+x = enemynear(enemy,name = "Dio Brando"),pos x
+y = -9999
+ignorehitpause = 1
+
+[State ]
+type = changeanim2
+trigger1 = 1
+value = 9999
+ignorehitpause = 1
+[State ]
+type = selfstate
+trigger1 = !ishelper
+value = 52
+ignorehitpause = 1
+[State ]
+type = DestroySelf
+trigger1 = !ishelper(123456)
+ignorehitpause = 1
+
+[State ];保持在畫面內
+type = Screenbound
+trigger1 = ishelper
+value = 0
+ignorehitpause = 1
+[State ];特殊斷言
+type = Assertspecial
+trigger1 = ishelper
+flag = invisible;不可見
+flag2 = noshadow;無影子
+ignorehitpause = 1
+[State 60001, 摿掕懏惈偺傒柦拞]
+type = NotHitby
+trigger1 = ishelper
+value = SCA,AA,AT,AP
+ignorehitpause = 1
+[State ]
+type = Ctrlset
+trigger1 = ishelper
+value = 0
+ignorehitpause = 1
+[State ]
+type = Screenbound
+trigger1 = ishelper
+value = 0
+ignorehitpause = 1
+[State ]
+type = Playerpush
+trigger1 = ishelper
+value = 0
+ignorehitpause = 1
+[State ]
+type = Removeexplod
+trigger1 = 1
+ignorehitpause = 1
+[State ]
+type = Assertspecial
+trigger1 = 1
+flag = invisible
+flag2 = noshadow
+ignorehitpause = 1
+
+[State ]
+type = posset
+trigger1 = 1
+x = enemynear(enemy,name = "Dio Brando"),pos x
+y = enemynear(enemy,name = "Dio Brando"),pos x
+ignorehitpause = 1
+
+;动画
+[State ]
+type = varset
+trigger1 = !var(0)
+var(0) = parent,sysvar(2)
+ignorehitpause = 1
+;hitdef状态号
+[State ]
+type = varset
+trigger1 = !var(1)
+var(1) = parent,sysvar(3)
+ignorehitpause = 1
+[State ]
+type = varset
+trigger1 = !var(3)
+var(3) = parent,id
+ignorehitpause = 1
+
+[State -2]
+type = Projectile
+triggerall = var(3) >= 3
+triggerall = var(0)
+triggerall = var(1)
+trigger1 = !numprojid(0)
+trigger1 = root,stateno != 1805
+trigger1 = root,stateno != 1005
+trigger1 = root,stateno != var(1)
+trigger1 = enemy(name = "Dio Brando"),stateno = 1800
+projpriority = 2147483647
+projid = 0
+projanim = var(0)
+projremove = 0
+projhits = 1
+projremovetime = 2
+projmisstime = 1
+attr = C,HP       
+hitflag = MAFDP     
+guardflag =      
+animtype = BACK        
+air.animtype = BACK
+damage = 0
+pausetime = 0 ,0
+sparkno = -1
+guard.sparkno = -1
+sparkxy = 0,0
+hitsound = -1
+postype = p2 
+offset = 0,-9999
+ground.type = TRIP
+pausemovetime = 9999999
+supermovetime = 9999999
+p1stateno = var(1)
+IgnoreHitPause = 1
+[State ]
+type = varset
+trigger1 = root,stateno != var(1)
+var(2) = 0
+ignorehitpause = 1
+
+[State -2]
+type = Projectile
+trigger1 = root,stateno = var(1)&&root,time > 60
+projpriority = 2147483647
+projid = 1
+projanim = var(0)
+projremove = 0
+projhits = 1
+projremovetime = 2
+projmisstime = 1
+attr = C,HP       
+hitflag = MAFDP     
+guardflag =      
+animtype = BACK        
+air.animtype = BACK
+damage = 0
+pausetime = 0 ,0
+sparkno = -1
+guard.sparkno = -1
+sparkxy = 0,0
+hitsound = -1
+postype = p2 
+offset = 0,-9999
+ground.type = TRIP
+pausemovetime = 9999999
+supermovetime = 9999999
+p1stateno = var(1)
+IgnoreHitPause = 1
+
+[State ]
+type = varadd
+trigger1 = root,stateno = var(1)
+var(2) = 1
+ignorehitpause = 1
+
+[State 0, DestroySelf]
+type = DestroySelf
+trigger1 = root,stateno != var(1)
+trigger1 = var(2)>60
+trigger2 = root,time > 60
+trigger2 = root,stateno = var(1)
+ignorehitpause = 1
+
+[State ]
+type = varadd
+trigger1 = 1
+var(3) = 1
+ignorehitpause = 1

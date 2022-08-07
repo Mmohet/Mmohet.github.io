@@ -1,0 +1,3935 @@
+[statedef -2]
+
+;-=-=-=-=-=-=-=-=-=-此处7-12p不会影响，为观赏向开关 ; The var that 7-12pal does not affect
+
+[State 0, VarSet]
+type = VarSet
+trigger1 = !ishelper
+v = 39    
+value = 1                   ;念经开关,为0不跳过念经，为1可跳过念经 ; OVER HEAVEN jump over front, if it's 1, that will jump over the OVER HEAVEN front, if it's 0, that will be normal.
+ignorehitpause = 1
+
+[State 0, VarSet]
+type = VarSet
+trigger1 = !ishelper
+v = 33    
+value = 1                   ;时停特效开关,为0开启兼容system等渲染的时停特效，为1开启OP渲染时停特效 ; The special effects for TIME STOP, if it's 1, it will use the special effects from Dry's Diego(for OpenGL), if there is 0, that will use the special effects for system render.
+ignorehitpause = 1
+
+
+
+;-=-=-=-=-=-=-=-=-=-=-以下为7-12p就会强制开启的开关 ; The var that 7-12pal on by default
+[State 0, VarSet]
+type = VarSet
+triggerall = palno < 7
+trigger1 = var(7) != 1
+trigger1 = !ishelper
+v = 7    
+value = 0                   ;强度开关,为1开启，为0关闭 ; strength botton ,if that's 1,that will open
+ignorehitpause = 1
+
+[State 0, VarSet]
+type = VarSet
+triggerall = palno < 7
+trigger1 = (var(5) != [2,3])&&var(5)<4
+trigger1 = !ishelper
+v = 5    
+value = 1                   ;一血时停开关,为1开启，为0关闭，为4则时常开启noko（抗毒死）（7-12p默认开启为4） ; if there is 1, that will use TIME STOP when you are die(Of course that will keep your safe), write 0 to close it ;!!!if there is 4, that will normally use NOKO!!!
+ignorehitpause = 1
+
+[State 0, VarSet]
+type = VarSet
+triggerall = palno < 7
+trigger1 = !ishelper
+v = 26    
+value = 0                   ;时停免疫开关,为1开启，为0关闭  (不推荐开启，会和小部分东西产生冲突)  ; use 1 to open that, that will make you move in others TIME STOP(Don't always use that. There are someting will conflict)
+ignorehitpause = 1
+
+[State 0, VarSet]
+type = VarSet
+triggerall = palno < 7
+trigger1 = !ishelper
+v = 34    
+value = 0                   ;永续开关,为1开启，为0关闭(敌生命回复检测，简称永续毒) ;if that is 1,it will create a HELPER to hit p2 when it's r2(roundstate is 2, means the fight start). and use REVERSAL to always get p2's target. That will make the hitnumber always in, and p2 can't restore their life.
+ignorehitpause = 1
+
+[State 0, VarSet]
+type = VarSet
+triggerall = palno < 7
+trigger1 = !ishelper
+v = 57    
+value = 0                  ;永续无敌解除开关,为0关闭，为1开启（此开关需先开启永续才可生效） ; (if you want to use it, please open the last VAR botton ↑↑↑) this ting will use the last helper to make p2 always can hited, NOTHITBY will be useless.
+ignorehitpause = 1
+
+
+
+;-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=; DON'T MODIFY!
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-; DON'T MODIFY!
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-以下内容勿动，如需改动请联系=-=-=-=-=-=-=-=; DON'T MODIFY!
+;-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-; DON'T MODIFY!
+;-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-; DON'T MODIFY!
+
+
+
+
+
+
+
+
+
+
+;-=-=-=-=- 7-12p -=-=-=-=-=-
+[State 0, VarSet]
+type = VarSet
+triggerall = palno > 6
+trigger1 = var(7) != 1
+trigger1 = !ishelper
+v = 7    
+value = 1                   ;12p强度脱离
+ignorehitpause = 1
+
+[State 0, VarSet]
+type = VarSet
+triggerall = palno > 6
+trigger1 = !ishelper
+v = 5    
+value = 4                   ;12p noko
+ignorehitpause = 1
+
+[State 0, VarSet]
+type = VarSet
+triggerall = palno > 6
+trigger1 = !ishelper
+v = 26    
+value = 1                   ;12时停解除
+ignorehitpause = 1
+
+[State 0, VarSet]
+type = VarSet
+triggerall = palno > 6
+trigger1 = !ishelper
+v = 34    
+value = 1                   ;12p永续
+ignorehitpause = 1
+
+[State 0, VarSet]
+type = VarSet
+triggerall = palno > 6
+trigger1 = !ishelper
+v = 57    
+value = 1                  ;12p永续无敌解除
+ignorehitpause = 1
+
+
+
+
+[State 0, VarSet]
+type = VarSet
+trigger1 = movetype = A&&!(ishelper(2333333))
+var(35) = 1
+ignorehitpause = 1
+
+[State 0, VarSet]
+type = parentVarSet
+trigger1 = var(35)&&ishelper&&!(ishelper(2333333))
+var(35) = 1
+ignorehitpause = 1
+
+[State 0, VarSet]
+type = VarSet
+trigger1 = movetype != A&&(time = [0,1])
+var(35) = 0
+ignorehitpause = 1
+
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = prevstateno = 11500||stateno = 11500
+flag = noko
+ignorehitpause = 1
+
+
+
+[State ]
+type = varset
+trigger1 = movereversed||movehit
+var(38) = anim
+ignorehitpause = 1
+[State ]
+type = varset
+trigger1 = 1
+var(43) = 1901;50000
+ignorehitpause = 1
+
+
+[State ]
+type = selfstate
+triggerall = !ishelper&&var(7) = 1
+trigger1 = hitpausetime >=2
+trigger1 = gametime != var(58)
+trigger1 = var(42):=stateno||1
+;trigger1 = movereversed||movehit
+;trigger1 = prevstateno != 11500
+value = 11500
+ignorehitpause = 1
+
+[State 永续]
+type = ReversalDef
+triggerall = ishelper(2333333)
+trigger1 = numtarget
+trigger1 = !target,ishelper
+reversal.attr = SCA, AA, AT, AP
+numhits = 0
+guard.dist = 0
+guardflag = 
+pausetime = 0,0
+sparkno = -1
+guard.sparkno = -1
+hitsound = -1
+guardsound = -1
+ignorehitpause = 1
+
+;---------------------------------------
+;NOKO
+[State 0, VarSet]
+type = VarSet
+trigger1 = var(5) = 2
+triggerall = (stateno = 11500||prevstateno = 11500)
+trigger1 = !ishelper
+v = 5   
+value = 1
+ignorehitpause = 1
+[State 0, VarSet]
+type = VarSet
+trigger1 = var(5) = 2
+triggerall = var(50) = 1
+trigger1 = !ishelper
+v = 5   
+value = 3
+ignorehitpause = 1
+
+[State 0 AssertSpecial]
+type = AssertSpecial
+triggerall = !ishelper
+;triggerall = enemy,alive > 0
+triggerall= (var(5) != 3||var(50)||var(5)=4) && var(5) != 0
+;trigger1 = life <= 1
+;triggerall = roundstate = 2
+;triggerall = enemy,stateno != 0&&enemynear,stateno != 0
+triggerall = enemy,life != 0||enemynear,life != 0
+trigger1 = 1
+flag=noko
+ignorehitpause = 1
+
+
+[State 0, ChangeState]
+type = selfState
+triggerall = (var(5)  != 3)&&var(5)&&prevstateno != 1901&&stateno != 1901&&(stateno != 11500||prevstateno != 11500)
+;triggerall = enemynear,life > 1
+trigger1 = life <= 1
+;trigger1 = roundstate = 2
+trigger1 = !ishelper
+;triggerall = prevstateno != 11500&&stateno != 11500
+value = 50000
+ctrl = 0
+ignorehitpause = 1
+;-------------------------------------------------------------
+
+
+[State 0, DisplayToClipboard]
+type = DisplayToClipboard
+trigger1 = !ishelper
+text = "Drandom = %d  Ddamage = %d OHrandom = %d Dresttime = %d var(5) = %d \n authorname is 'MOHET', my other name is 'MOQIN'. Here is some remarks for some random things."
+params = var(27),var(32),floor(gametime *0.002),180-cond(180-floor(gametime*0.01)<=0,180,floor(gametime*0.01)),var(5)
+ignorehitpause = 1
+
+
+
+
+[State 0, VarSet]
+type = VarSet
+trigger1 = var(39) = 1
+trigger1 = !ishelper
+v = 59    
+value = 9
+ignorehitpause = 1
+
+[State 0, DestroySelf]
+type = DestroySelf
+trigger1 = ishelper&&movetype = H
+ignorehitpause = 1
+
+
+[State 0, VarAdd]
+type = VarAdd
+triggerall = var(7) = 1
+triggerall = !ishelper
+trigger1 = movetype =H&&time = 0
+trigger1 = power>0
+trigger2 = gametime%(180-cond(180-floor(gametime*0.01)<=0,180,floor(gametime*0.01))) = 0
+v = 27    ;fv = 
+value = 8+random%13
+ignorehitpause = 1
+
+
+
+
+[state ]
+type = helper ;(永续helper召唤）
+triggerall = var(34) = 1
+triggerall = !ishelper
+triggerall = roundstate >1
+trigger1 = !numhelper(2333333)
+id = 2333333
+Stateno = 2333333
+ownpal = 1
+postype = p1
+pos = 0,0
+Pausemovetime = 9999999999
+Supermovetime = 9999999999
+Ignorehitpause = 1
+helpertype = player
+
+[state ]
+type = selfstate ;(锁定helper）
+trigger1 = ishelper(2333333)&&(stateno!=2333333||gametime != var(58))
+value = 2333333
+persistent = 256
+ignorehitpause = 1
+
+
+
+
+[State 0, PosSet]
+type = PosSet
+triggerall = !ishelper
+trigger1 = pos y > 1
+trigger1 = statetype = S
+y = 0
+ignorehitpause = 1
+
+
+
+
+[State 0, SelfState]
+type = SelfState
+triggerall = var(7) = 1
+triggerall = !ishelper&&stateno != 11500&&prevstateno != 11500&&!(movereversed&&hitpausetime)
+triggerall = cond(prevstateno = 4000||prevstateno = 2001||prevstateno = 1100,time > 1,1)
+trigger1 = (movetype =H)&&time = 0;||gametime!=var(56)
+triggerall = (random<var(27)+floor(gametime*0.005))||palno>6
+value = 2536
+ignorehitpause = 1
+
+
+[State 0, Null]
+type = Null
+trigger1 = !var(36)
+trigger1 = var(36):=life                                 ;记录开局血量
+ignorehitpause = 1
+
+
+[State 0, Null]
+type = Null
+trigger1 = var(37) = 0                                   ;次数计算，防止数值超标
+trigger1 = gethitvar(damage) != 0                        ;受到伤害检测
+trigger1 = var(36) := var(36) - cond(gethitvar(damage)>=lifemax,0,gethitvar(damage))|| 1    ;计算血量
+trigger1 = var(37) := 1                                  ;计算次数，防止数值超标
+ignorehitpause = 1
+
+
+[State 0, Null]
+type = Null                                              ;次数计算
+trigger1 = gethitvar(damage) = 0                         ;无伤害
+trigger1 = var(37) := 0                                  ;变回
+ignorehitpause = 1
+
+
+
+[State 0, LifeSet]                                       ;锁血
+type = LifeSet
+trigger1 = var(7) = 1
+value = var(36)
+ignorehitpause = 1
+
+
+
+[State 0, Null]
+type = Null
+triggerall = var(7)!=0
+;trigger1 = life < lifemax * 0.9
+trigger1 = var(55) = 1
+;trigger1 = !var(44)
+trigger1 = var(44):=life||1
+trigger1 = var(45):=60*3      ;时间设置改变数值（3）
+ignorehitpause = 1
+
+[State 0, Null]
+type = Null
+trigger1 = var(45)>0
+trigger1 = !var(50)
+trigger1 = var(45):= var(45)-1
+ignorehitpause = 1
+
+
+[State 0, LifeSet]
+type = null;LifeSet
+trigger1 = var(45)&&var(44)
+value = var(44)
+ignorehitpause = 1
+
+
+
+[State 0, Null]
+type = Null
+trigger1 = !var(53)
+trigger1 = var(53):=life
+ignorehitpause = 1
+
+[State 0, Null]
+type = Null
+trigger1 = var(49):=life||1
+trigger1 = var(53) > var(49) + 200
+trigger1 = var(55):=1||1
+ignorehitpause = 1
+
+
+
+
+
+
+[State 0, PosAdd]
+type = PosAdd
+trigger1 = var(54)=1                          ;确认正在闪避
+x = (p2dist x) +30                            ;敌后方位置
+y = p2dist y                                  ;敌空中位置
+ignorehitpause = 1
+
+[State 0, Turn]
+type = Turn                                   ;转向
+trigger1 = var(54)=1                          ;确认正在闪避
+ignorehitpause = 1 
+
+[State 0, BGPalFX]
+type = BGPalFX
+trigger1 = var(54)=1                          ;确认正在闪避
+time = 15
+invertall = 0
+color = 30
+ignorehitpause = 1
+
+[State 0, EnvShake]
+type = EnvShake
+trigger1 = var(54)=1                          ;确认正在闪避
+time = 15
+ignorehitpause = 1
+
+[State 0, SuperPause]
+type = SuperPause                             ;小时停加黑幕
+trigger1 = var(54)=1                          ;确认正在闪避
+time = 15                                     ;持续时间
+anim = -1                                     ;没有动画
+pos = 0,0                                     ;没有位置偏移
+movetime = 0                                  ;时停中可移动时间为0
+darken = 1                                    ;黑幕启用
+p2defmul = 1
+poweradd = 0                                  ;持续期间无能量增加，如需消耗能量，可以填一个负数
+unhittable = 1
+ignorehitpause = 1
+
+[State 0, SelfState]
+type = SelfState
+trigger1 = var(54)=1                          ;确认正在闪避
+trigger1 = var(54):=0||1                      ;闪避结束
+value =cond(pos y = 0,0,50)                   ;从受击回站立，空中就下落
+ctrl = 1                                      ;结束闪避以后可控制
+ignorehitpause = 1
+
+
+
+[State 0, AttackMulSet]
+type = AttackMulSet
+trigger1 = (enemynear,lifemax*0.001)>1
+trigger1 = (enemynear,const(data.defence)*0.01)>1
+value = ((enemynear,lifemax*0.001)*(enemynear,const(data.defence)*0.01))
+ignorehitpause = 1
+
+[State 0, AttackMulSet]
+type = AttackMulSet
+trigger1 = (enemynear,lifemax*0.001)>1
+trigger1 = (enemynear,const(data.defence)*0.01)<=1
+value = (enemynear,lifemax*0.001)
+ignorehitpause = 1
+
+[State 0, AttackMulSet]
+type = AttackMulSet
+trigger1 = (enemynear,lifemax*0.001)<=1
+trigger1 = (enemynear,const(data.defence)*0.01)>1
+value = (enemynear,const(data.defence)*0.01)
+ignorehitpause = 1
+
+;============================
+[State 0, The world Dogde]
+type = null;HitOverride
+triggerall = ailevel = 0
+triggerall = numhelper(560) = 0
+triggerall = Power >= 500
+triggerall = roundstate = 2
+triggerall = ctrl ||  stateno = [0,155]
+;triggerall = !(prevstateno = 2004)
+triggerall = life > 50
+triggerall = command = "holdup" || command = "holddown" || command = "holdfwd" || command = "holdback" || command = "hold_a" || command = "hold_b" || command = "hold_c" || command = "hold_x" || command = "hold_y" || command = "hold_z" || command = "hold_s"
+trigger1 = random < 400
+trigger2 = command = "hold_s"
+trigger2 = random < 350
+attr = SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT
+time = 1
+stateno = 1901
+[State 0, The world Dogde AI]
+type = null;HitOverride
+triggerall = ailevel > 0
+;triggerall = numhelper(560) = 0
+triggerall = Power >= 500
+triggerall = roundstate = 2
+triggerall = ctrl || stateno = [0,155]
+;triggerall = !(prevstateno = 2004)
+triggerall = life > 50
+trigger1 = random < (ailevel * 100)
+attr = SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT
+time = 1
+stateno = 1901
+
+[State -3, 敌当身记录-]
+Type = Helper
+triggerall = var(59)
+trigger1 =!NumHelper(33500+id)
+trigger1 =!IsHelper
+HelperType = Normal
+Name = "MoveReversed"
+PosType = p1
+StateNo = 33500
+ID = 33500+id
+pos=0,0
+pausemovetime=2147483647
+supermovetime=2147483647
+persistent = 1
+IgnoreHitPause = 1
+KeyCtrl = 0
+Ownpal = 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[State 0, Golpeado]
+type = PlaySnd
+trigger1 = movetype=H && (stateno!=[0,155]) && !time && HitOver=0 && random%5=0
+value = 5000,cond(random < 500,1,cond(random < 500,2,3))
+
+
+
+[State 0, SuperPause]
+type = SuperPause
+trigger1 = roundstate = 3&&win;&&time %4 = 1
+time = 1
+anim = 9999
+;sound = S10,0
+;pos = 0,0
+movetime = 0
+darken = 0
+p2defmul = 1
+poweradd = 0
+unhittable = 1
+ignorehitpause = 1
+;persistent = 
+
+
+
+[State 0, RemapPal]
+type = RemapPal
+trigger1 = teamside = 2
+source = 0,240
+dest = 0,241
+ignorehitpause =1
+
+
+
+
+
+[state ]
+type = selfstate ;(锁定helper）
+trigger1 = ishelper(100000)
+value = 100000
+persistent = 256
+ignorehitpause = 1
+
+
+
+
+[State 0, DestroySelf]
+type = DestroySelf
+trigger1 = ishelper(901)&&stateno != 901
+ignorehitpause = 1
+;persistent = 
+
+
+
+
+
+[State 0, VarSet]
+type = VarSet
+trigger1 = stateno!=4000&&stateno!=1901
+v = 54    
+value = 0
+;ignorehitpause = 
+;persistent = 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[State 0, HitOverride]
+type = HitOverride
+trigger1 = stateno = [120,140]
+attr = SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT
+slot = 0
+stateno = stateno 
+time = 1
+forceair = 0
+ignorehitpause = 1
+
+
+
+[State 0, PosSet]
+type = PosSet
+trigger1 = time = 420 + (!ishelper)*80
+triggerall = stateno = 10000||stateno = 10001
+x = 0
+y = 0
+;ignorehitpause = 
+;persistent = 
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = stateno != 195
+ID = 75800
+ignorehitpause = 1
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = stateno != 195
+ID = 515
+ignorehitpause = 1
+
+[state ]
+
+Type = null;helper
+
+Trigger1 = !numhelper(989898)
+
+helpertype = normal
+
+Name = ""
+
+ID = 989898
+
+Stateno = 989898
+
+Pos = 0,0
+
+Postype = p1
+
+Supermovetime = 99999
+
+Pausemovetime = 99999
+
+
+
+
+
+;================================================
+;attack
+
+[State 0, AttackMulSet]
+type = AttackMulSet
+trigger1 = var(50) > 0&&!ishelper
+trigger2 = ishelper &&root,var(50) > 0
+value = 0.7
+ignorehitpause = 1
+
+[State 0, AttackMulSet]
+type = AttackMulSet
+trigger1 = var(5) = 2&&!ishelper
+trigger2 = ishelper&&root,var(5) = 2&&!ishelper(1000)
+value = 1.6
+ignorehitpause = 1
+
+[State 0, DefenceMulSet]
+type = DefenceMulSet
+trigger1 = stateno = [5000,5210]
+trigger1 = !ishelper
+value = 0.8
+ignorehitpause = 1
+
+[State 0, DefenceMulSet]
+type = DefenceMulSet
+trigger1 = var(5) = 2&&!ishelper
+value = 0.75
+ignorehitpause = 1
+
+[State 0, AttackMulSet]
+type = AttackMulSet
+triggerall = var(5) != 2
+trigger1 = !ishelper&&life < 500
+trigger2 = ishelper&&root,life < 500&&!ishelper(1000)
+value = 1.2
+ignorehitpause = 1
+
+ [State 0, AttackMulSet]
+type = AttackMulSet
+triggerall = var(5) != 2
+trigger1 = !ishelper&&life < 400
+trigger2 = ishelper&&root,life < 400&&!ishelper(1000)
+value = 1.35
+ignorehitpause = 1
+
+[State 0, AttackMulSet]
+type = AttackMulSet
+triggerall = var(5) != 2
+trigger1 = !ishelper&&life < 300
+trigger2 = ishelper&&root,life < 300&&!ishelper(1000)
+value = 1.5
+ignorehitpause = 1
+
+[State 0, AttackMulSet]
+type = AttackMulSet
+triggerall = var(5) != 2
+trigger1 = !ishelper&&life < 200
+trigger2 = ishelper&&root,life < 200&&!ishelper(1000)
+value = 1.65
+ignorehitpause = 1
+
+[State 0, AttackMulSet]
+type = AttackMulSet
+triggerall = var(5) != 2
+trigger1 = !ishelper&&life < 100
+trigger2 = ishelper&&root,life < 100&&!ishelper(1000)
+value = 2
+ignorehitpause = 1
+;===========================================================
+
+;-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-WARNING!!!分流不可删
+[State 0, ChangeState]
+type = ChangeState
+trigger1 = authorname != "MOHET"
+value =0
+ctrl = 0
+ignorehitpause = 1
+
+
+[State 0, AttackMulSet]
+type = AttackMulSet
+trigger1 = authorname != "MOHET"
+value = 0
+ignorehitpause = 1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=WARNING!!!分流不可删
+[State 0,Helper]
+type=Helper
+trigger1=Time>=5
+trigger1 = var(51)!=0&&!ishelper
+Trigger1=GameTime%5=0
+helpertype=normal
+ID=001
+name="515"
+stateno=515
+pos=-1,0
+postype=p1
+facing=1
+ownpal=1
+keyctrl=0
+size.xscale=1
+size.yscale=1
+IgnoreHitPause=1
+SuperMoveTime=99999
+PauseMoveTime=99999
+
+[State 0,Afterimage]
+type = AfterImage
+triggerall=teamside = 1
+triggerall = timemod = 6,0
+trigger1 = var(51)!=0&&!ishelper
+trigger2 = ishelper
+triggerall = stateno != 306
+time = 12
+trans = Add
+length = 60-var(50)/30
+timegap = 1
+framegap = 1
+palbright = 0 , 0 , 0
+palcontrast = 30, 50, 80
+paladd = 0,0,1
+palmul = .50, .50, 1.10
+[State 0,Afterimage]
+type = AfterImage
+triggerall=teamside = 2
+triggerall = timemod = 12,0
+trigger1 = var(51)!=0&&!ishelper
+trigger2 = ishelper
+triggerall = stateno != 306
+time = 12
+trans = Add
+length = 60-var(50)/30
+timegap = 1
+framegap = 1
+palbright = 0 , 0 , 0
+palcontrast = 180, 30, 0
+paladd = 0,0,1
+palmul = .50, .50, 1.10
+[State 0, SuperPause]
+type = SuperPause
+trigger1 = var(51) >0&&!ishelper&&gametime%3=1
+triggerall = stateno != 9000
+triggerall = var(50) = 0
+time = 1
+anim = 9999
+;sound = S10,0
+pos = 0,0
+movetime = 1
+;darken = 1
+p2defmul = 1
+poweradd = 5
+unhittable = 0
+ignorehitpause = 1
+
+[State 0, VarAdd]
+type = VarAdd
+trigger1 = var(51) > 0&&stateno != 9000&&var(50) = 0
+v =51     ;fv = 
+value = -1
+ignorehitpause = 1
+
+[State 0, VelAdd]
+type = null;VelAdd
+trigger1 = var(51)>0&&!ishelper&&vel x != 0;&&vel x/abs(vel x)= -facing
+x = 0.6-var(51)*0.0005*-vel x/abs(vel x )
+ignorehitpause = 1
+
+[State 0, VelAdd]
+type = VelAdd
+trigger1 = var(51)>0&&!ishelper&&vel y != 0
+triggerall = stateno !=[200,240]
+y =-0.3+var(51)*0.00025-cond(vel y < 1 ,pos y*0.0008,0)
+ignorehitpause = 1
+
+[State 0, BGPalFX] 
+type = BGPalFX
+trigger1 = var(51)>0&&root,stateno!=1300
+time = 1
+invertall = 0
+color = cond(var(51)<24&&((enemy,authorname = "MOHET"&&enemy,var(51) = 0)||(enemynear,authorname = "MOHET"&&enemynear,var(51) = 0)),30-(var(51)*9)+224,30)
+ignorehitpause = 1
+
+[State 0, Explod]
+type = Explod
+trigger1 = var(51)>0&&!numexplod(12400)&&!ishelper
+triggerall = stateno != 9000
+anim = 12400
+ID = 12400
+pos = 0,0
+postype = left  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = 0
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+pausemovetime = 90
+scale = 0.9,0.7
+sprpriority = 0
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 0
+ignorehitpause =1
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = var(51)=0&&numexplod(12400)
+id = 12400
+ignorehitpause = 1
+
+
+;=========================================================
+; ZA WA LU DO
+
+;--------------------------------------------------------------
+;p2
+[State 0, Explod]
+type = Explod
+trigger1 = var(50) = 600
+triggerall = teamside = 2
+anim = 12300
+ID = 12300
+pos = -30,40
+postype = right  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = 1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+pausemovetime = 99999
+supermovetime = 99999
+scale = 0.7,0.7
+sprpriority = 0
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 0
+ignorehitpause = 1
+
+[State 0, Explod]
+type = Explod
+trigger1 = var(50) = 600
+triggerall = teamside = 2
+anim = 12301
+ID = 12300
+pos = -60,37
+postype = right  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = 1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+pausemovetime = 99999
+supermovetime = 99999
+scale = 0.8,0.8
+sprpriority = 0
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 0
+ignorehitpause = 1
+
+[State 0, Explod]
+type = Explod
+trigger1 = var(50) = 540
+triggerall = teamside = 2
+anim = 12309
+ID = 12300
+pos = -30,40
+postype = right  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = 1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+pausemovetime = 99999
+supermovetime = 99999
+scale = 0.7,0.7
+sprpriority = 0
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 0
+ignorehitpause = 1
+
+[State 0, Explod]
+type = Explod
+trigger1 = var(50) = 480
+triggerall = teamside = 2
+anim = 12308
+ID = 12300
+pos = -30,40
+postype = right  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = 1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+pausemovetime = 99999
+supermovetime = 99999
+scale = 0.7,0.7
+sprpriority = 0
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 0
+ignorehitpause = 1
+
+[State 0, Explod]
+type = Explod
+trigger1 = var(50) = 420
+triggerall = teamside = 2
+anim = 12307
+ID = 12300
+pos = -30,40
+postype = right  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = 1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+pausemovetime = 99999
+supermovetime = 99999
+scale = 0.7,0.7
+sprpriority = 0
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 0
+ignorehitpause = 1
+
+[State 0, Explod]
+type = Explod
+trigger1 = var(50) = 360
+triggerall = teamside = 2
+anim = 12306
+ID = 12300
+pos = -30,40
+postype = right  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = 1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+pausemovetime = 99999
+supermovetime = 99999
+scale = 0.7,0.7
+sprpriority = 0
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 0
+ignorehitpause = 1
+
+[State 0, Explod]
+type = Explod
+trigger1 = var(50) = 300
+triggerall = teamside = 2
+anim = 12305
+ID = 12300
+pos = -30,40
+postype = right  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = 1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+pausemovetime = 99999
+supermovetime = 99999
+scale = 0.7,0.7
+sprpriority = 0
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 0
+ignorehitpause = 1
+
+[State 0, Explod]
+type = Explod
+trigger1 = var(50) = 240
+triggerall = teamside = 2
+anim = 12304
+ID = 12300
+pos = -30,40
+postype = right  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = 1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+pausemovetime = 99999
+supermovetime = 99999
+scale = 0.7,0.7
+sprpriority = 0
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 0
+ignorehitpause = 1
+
+[State 0, Explod]
+type = Explod
+trigger1 = var(50) = 180
+triggerall = teamside = 2
+anim = 12303
+ID = 12300
+pos = -30,40
+postype = right  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = 1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+pausemovetime = 99999
+supermovetime = 99999
+scale = 0.7,0.7
+sprpriority = 0
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 0
+ignorehitpause = 1
+
+[State 0, Explod]
+type = Explod
+trigger1 = var(50) = 120
+triggerall = teamside = 2
+anim = 12302
+ID = 12300
+pos = -30,40
+postype = right  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = 1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+pausemovetime = 99999
+supermovetime = 99999
+scale = 0.7,0.7
+sprpriority = 0
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 0
+ignorehitpause = 1
+
+[State 0, Explod]
+type = Explod
+trigger1 = var(50) = 60
+triggerall = teamside = 2
+anim = 12301
+ID = 12300
+pos = -30,40
+postype = right  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = 1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+pausemovetime = 99999
+supermovetime = 99999
+scale = 0.7,0.7
+sprpriority = 0
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 0
+ignorehitpause = 1
+
+
+
+
+
+
+
+
+
+
+;--------------------------------
+;p1
+[State 0, Explod]
+type = Explod
+trigger1 = var(50) = 600
+triggerall = teamside = 1
+anim = 12300
+ID = 12300
+pos = 15,40
+postype = left  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = 1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+pausemovetime = 99999
+supermovetime = 99999
+scale = 0.7,0.7
+sprpriority = 0
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 0
+ignorehitpause = 1
+
+[State 0, Explod]
+type = Explod
+trigger1 = var(50) = 600
+triggerall = teamside = 1
+anim = 12301
+ID = 12300
+pos = -20,37
+postype = left  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = 1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+pausemovetime = 99999
+supermovetime = 99999
+scale = 0.8,0.8
+sprpriority = 0
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 0
+ignorehitpause = 1
+
+[State 0, Explod]
+type = Explod
+trigger1 = var(50) = 540
+triggerall = teamside = 1
+anim = 12309
+ID = 12300
+pos = -5,40
+postype = left  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = 1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+pausemovetime = 99999
+supermovetime = 99999
+scale = 0.7,0.7
+sprpriority = 0
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 0
+ignorehitpause = 1
+
+[State 0, Explod]
+type = Explod
+trigger1 = var(50) = 480
+triggerall = teamside = 1
+anim = 12308
+ID = 12300
+pos = -5,40
+postype = left  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = 1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+pausemovetime = 99999
+supermovetime = 99999
+scale = 0.7,0.7
+sprpriority = 0
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 0
+ignorehitpause = 1
+
+[State 0, Explod]
+type = Explod
+trigger1 = var(50) = 420
+triggerall = teamside = 1
+anim = 12307
+ID = 12300
+pos = -5,40
+postype = left  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = 1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+pausemovetime = 99999
+supermovetime = 99999
+scale = 0.7,0.7
+sprpriority = 0
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 0
+ignorehitpause = 1
+
+[State 0, Explod]
+type = Explod
+trigger1 = var(50) = 360
+triggerall = teamside = 1
+anim = 12306
+ID = 12300
+pos = -5,40
+postype = left  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = 1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+pausemovetime = 99999
+supermovetime = 99999
+scale = 0.7,0.7
+sprpriority = 0
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 0
+ignorehitpause = 1
+
+[State 0, Explod]
+type = Explod
+trigger1 = var(50) = 300
+triggerall = teamside = 1
+anim = 12305
+ID = 12300
+pos = -5,40
+postype = left  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = 1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+pausemovetime = 99999
+supermovetime = 99999
+scale = 0.7,0.7
+sprpriority = 0
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 0
+ignorehitpause = 1
+
+[State 0, Explod]
+type = Explod
+trigger1 = var(50) = 240
+triggerall = teamside = 1
+anim = 12304
+ID = 12300
+pos = -5,40
+postype = left  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = 1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+pausemovetime = 99999
+supermovetime = 99999
+scale = 0.7,0.7
+sprpriority = 0
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 0
+ignorehitpause = 1
+
+[State 0, Explod]
+type = Explod
+trigger1 = var(50) = 180
+triggerall = teamside = 1
+anim = 12303
+ID = 12300
+pos = -5,40
+postype = left  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = 1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+pausemovetime = 99999
+supermovetime = 99999
+scale = 0.7,0.7
+sprpriority = 0
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 0
+ignorehitpause = 1
+
+[State 0, Explod]
+type = Explod
+trigger1 = var(50) = 120
+triggerall = teamside = 1
+anim = 12302
+ID = 12300
+pos = -5,40
+postype = left  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = 1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+pausemovetime = 99999
+supermovetime = 99999
+scale = 0.7,0.7
+sprpriority = 0
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 0
+ignorehitpause = 1
+
+[State 0, Explod]
+type = Explod
+trigger1 = var(50) = 60
+triggerall = teamside = 1
+anim = 12301
+ID = 12300
+pos = -5,40
+postype = left  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = 1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+pausemovetime = 99999
+supermovetime = 99999
+scale = 0.7,0.7
+sprpriority = 0
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 0
+ignorehitpause = 1
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = var(50) = 115
+value = S0,31
+volumescale = 100
+channel = -1
+;lowpriority = -1
+freqmul = 1.0
+loop = 0
+pan = 0
+;abspan = 
+ignorehitpause = 1
+
+[State 0, Helper]
+type = Helper
+trigger1 = var(50)=420&&!ishelper
+triggerall = (enemy,authorname != "MOHET"&&enemynear,authorname != "MOHET")||((enemy,authorname  = "MOHET"&&enemy,var(50) = 0)&&(enemynear,authorname  = "MOHET"&&enemynear,var(50) = 0))
+helpertype = normal 
+name = ""
+ID = 1600
+stateno = 160
+pos = 0,-25
+postype = p1    
+facing = 1
+keyctrl = 0
+ownpal = 1
+supermovetime = 99999
+pausemovetime = 99999
+size.xscale = 0.2
+size.yscale = 0.2
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 =var(50) = 69
+value = S5,32
+volumescale = 999
+channel = 3
+
+[State 0, Helper]
+type = Helper
+trigger1 = var(50)<70&&var(50)!=0&&numhelper(1650)=0
+helpertype = normal 
+name = ""
+ID = 1650
+stateno = 165
+pos = 0,0
+postype = p1    
+facing = 1
+keyctrl = 0
+ownpal = 1
+supermovetime = 99999
+pausemovetime = 99999
+
+
+[State 0, VarAdd]
+type = VarAdd
+trigger1 = var(50)!=0&&(stateno!=710&&stateno!=3005)
+v =    50
+value = -1
+ignorehitpause =1 
+
+[State 0, BGPalFX]
+type = BGPalFX
+trigger1 = var(50)>0&&root,stateno!=1300
+time = 1
+invertall = 0
+color = cond(var(50)<24&&var(51) = 0,30-(var(50)*9)+224,30)
+ignorehitpause = 1
+[State 0, SuperPause]
+type = SuperPause
+trigger1 = var(50)>0
+time = 5
+anim = -1
+;sound = S10,0
+;pos = 0,0、
+movetime = 5
+darken = 0
+p2defmul = 1
+poweradd = 0
+unhittable = 0
+ignorehitpause =1 
+;persistent = 
+
+
+[State 0, Pause]
+type = null;Pause
+trigger1 = var(50)>0
+time = 5
+movetime = 5
+ignorehitpause = 1
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = command ="z" && var(50) > 120 && var(50) <= 420
+triggerall = (enemy,authorname != "MOHET"&&enemynear,authorname != "MOHET")||((enemy,authorname  = "MOHET"&&enemy,var(50) = 0)&&(enemynear,authorname  = "MOHET"&&enemynear,var(50) = 0))
+triggerall = ailevel = 0
+id = 12300
+ignorehitpause = 1
+
+
+[State 0, VarSet]
+type = VarSet
+trigger1 = command ="z" && var(50) > 120 && var(50) <= 420
+triggerall = (enemy,authorname != "MOHET"&&enemynear,authorname != "MOHET")||((enemy,authorname  = "MOHET"&&enemy,var(50) = 0)&&(enemynear,authorname  = "MOHET"&&enemynear,var(50) = 0))
+triggerall = ailevel = 0
+v = 50    
+value = 120
+ignorehitpause = 1
+
+[State 0, NotHitBy]
+type = NotHitBy
+trigger1 = enemynear(1),authorname != "MOHET"&&enemynear,authorname != "MOHET"&&var(50)> 0
+value = SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT
+;value2 = S,NA
+time = 1
+ignorehitpause = 1
+;persistent = 
+
+[State 0, VarAdd]
+type = null;VarAdd
+;triggerall = var(50) > 0||root,var(50)> 0
+;triggerall = var(24) = 0
+trigger1 = 1;movehit;&&time = 8
+v = 23    ;fv = 
+value = target,gethitvar(damage)
+ignorehitpause = 1
+;persistent = 
+[State 0, TargetLifeAdd]
+type = null;TargetLifeAdd
+triggerall = var(50) > 0||root,var(50)> 0
+trigger1 = movehit;&&time = 8
+value = target,gethitvar(damage)
+ID = -1
+kill = 1
+absolute = 0
+ignorehitpause = 1
+;persistent = 
+
+[State 0, VarSet]
+type =null;parentVarset
+trigger1 = parent,ishelper = 0
+;trigger1 = ;var(24)!=helper(1000),var(23)
+v = 24    
+value = var(23)
+;ignorehitpause = 
+;persistent = 
+
+
+;persistent = 1
+
+[State 0, TargetLifeAdd]
+type = null;TargetLifeAdd
+triggerall = var(50) = 2||root,var(50)= 2
+trigger1 = 1
+value = -(var(23));*0.7
+ID = -1
+kill = 1
+absolute = 0
+;ignorehitpause = 
+;persistent = 
+
+[State 0, VarSet]
+type = VarSet
+trigger1 = var(50) = 1
+v = 23    
+value = 0
+;ignorehitpause = 
+;persistent = 
+
+[State 0, VarSet]
+type = null;VarSet
+trigger1 = var(50) = 1
+v = 24    
+value = 0
+;ignorehitpause = 
+;persistent = 
+;-------------------------------------------------------------
+
+;===================================================================
+;Superpause override
+[State 0, VarSet]
+type = VarSet
+trigger1 = 1
+v = 14    
+value = helper(100000),var(9)
+ignorehitpause = 1
+;persistent = 
+
+
+
+[State 0, VarSet]
+type = VarSet
+trigger1 = root,var(14) != helper(100000),var(9)
+v = 16    
+value = 1
+ignorehitpause = 1
+
+
+[State 0, VarSet]
+type = VarSet
+trigger1 = root,var(14) = helper(100000),var(9)
+v = 16    
+value = 0
+ignorehitpause = 1
+
+;-------------------------------------------------------------------------
+[State 0, SelfState]
+type = SelfState
+triggerall = !ishelper
+;trigger1 = p2movetype = A||target,ishelper
+trigger1 = helper(45256),numtarget > 0;||(helper(45256),numtarget = 0&&p2movetype = A)
+;trigger1 = movetype != H
+;trigger1 = stateno != 67667 ;&& prevstateno !=67667
+trigger1 = var(17) = 1
+trigger1 = random < (var(18)*10)
+trigger1 = var(13) = 0
+triggerall = stateno != 2001&&stateno != 2002
+value = 67667
+ctrl = 0
+ignorehitpause = 1
+
+
+
+[State 0, Helper]
+type = Helper
+trigger1 = numhelper(45256) = 0
+triggerall = var(17) = 1
+helpertype = normal ;player
+name = "L"
+ID = 45256
+stateno = 45256
+pos = 0,0
+postype = p1    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+supermovetime = 999999
+pausemovetime = 999999
+ignorehitpause = 1
+
+
+[State 0, VarAdd]
+type = Varset
+triggerall = var(13) > 0
+trigger1 = stateno != 67667||target,ishelper;target,movetype != a||helper(45256),numtarget = 0
+triggerall = !ishelper
+v =13     ;fv = 
+value = 1
+;ignorehitpause = 
+;persistent = 
+
+[State 0, VarAdd]
+type = Varset
+triggerall = var(13) > 0
+trigger1 = enemynear,movetype != a
+triggerall = !ishelper
+v =13     ;fv = 
+value = 0
+;ignorehitpause = 
+;persistent = 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[State 0, SuperPause]
+type = null;SuperPause
+triggerall = fvar(20)>=1 
+trigger1 = ((helper(305),anim=1505)&&stateno!=1500)||((helper(305),anim=1320)&&stateno!=1300)||((helper(305),anim=1220)&&stateno!=1200)
+time = 0+var(15)
+movetime =0+ var(15)
+anim = -1
+sound = -1
+pos = 32,-80
+darken = 0
+unhittable = 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[State 0, Helper]
+type = Helper
+;triggerall = roundstate = 2
+trigger1=enemynear,numpartner  = 1
+trigger1 = numhelper(100001) <= 0;(0+(enemynear,teammode = simul))
+helpertype = normal;player
+name = "afd"
+ID = 100001;+numhelper(100000)-1
+stateno = 100001
+pos = 0,0
+postype = p1    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 0
+supermovetime = 999999
+pausemovetime = 999999
+;size.xscale = 
+;size.yscale = 
+;size.ground.back = 
+;size.ground.front = 
+;size.air.back = 
+;size.air.front = 
+;size.height = 
+;size.proj.doscale = 
+;size.head.pos = , 
+;size.mid.pos = , 
+;size.shadowoffset = 
+;ignorehitpause = 
+;persistent = 
+
+
+[State 0, Helper]
+type = Helper
+;triggerall = roundstate = 2
+trigger1 = numhelper(100000) <= 0;(0+(enemynear,teammode = simul))
+helpertype = normal;player;
+name = "afd"
+ID = 100000;+numhelper(100000)-1
+stateno = 100000
+pos = 0,0
+postype = p1    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 0
+supermovetime = 999999
+pausemovetime = 999999
+;size.xscale = 
+;size.yscale = 
+;size.ground.back = 
+;size.ground.front = 
+;size.air.back = 
+;size.air.front = 
+;size.height = 
+;size.proj.doscale = 
+;size.head.pos = , 
+;size.mid.pos = , 
+;size.shadowoffset = 
+;ignorehitpause = 
+;persistent = 
+[State 0, Helper]
+type = Helper
+trigger1 = gametime%7 = 0
+trigger1 = enemynear,stateno = 30000||enemynear(1),stateno = 30000
+helpertype = normal ;player;
+name = ""
+ID = 20800
+stateno = 20800
+pos = 0,0
+postype = p1    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 0
+supermovetime = 0
+pausemovetime = 0
+;size.xscale = 
+;size.yscale = 
+;size.ground.back = 
+;size.ground.front = 
+;size.air.back = 
+;size.air.front = 
+;size.height = 
+;size.proj.doscale = 
+;size.head.pos = , 
+;size.mid.pos = , 
+;size.shadowoffset = 
+;ignorehitpause = 
+;persistent = 
+
+
+[State 0, Explod]
+type = Explod
+trigger1 = gametime%7 = 0
+trigger1 = enemynear,stateno = 30000||enemy,stateno = 30000
+;trigger1 = helper(1000),stateno != 1002
+;trigger1 = numexplod <= 4
+anim = 1551
+ID = 20800
+pos = 0,-20
+postype = p2  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = 1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+pausemovetime = 1
+supermovetime = 1
+scale = 0.25,0.25
+angle = 180
+sprpriority = 0
+ontop = 0
+shadow = 0,0,0
+ownpal = 0
+removeongethit = 0
+;ignorehitpause =
+;trans = 
+;persistent =
+;supermove = 0
+;pausemove = 0
+
+
+[State 0, VarSet]
+type = VarSet
+trigger1 = !var(4)
+v = 4    
+value = 0
+;ignorehitpause = 
+;persistent = 
+
+[State 0, VarSet]
+type = null;VarSet
+trigger1 = 1
+var(4) = pos x = p2bodydist
+;ignorehitpause = 
+;persistent = 
+
+
+[State 0, NotHitBy]
+type = null;NotHitBy
+trigger1 = helper(1000),movehit
+value = SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT
+;value2 = S,NA
+time = 1
+ignorehitpause = 1
+;persistent = 
+
+
+
+
+
+;=================================================================================
+;maybe useless?
+[State 0, Pause]
+type = null;Pause
+triggerall = roundstate = 2
+triggerall = !ishelper
+trigger1 = enemynear,pos y = pos y
+trigger1 = abs(enemynear,pos x - pos x) < 1000
+trigger1 = gametime%10 = 0                                            ;¸ÄµÄÊ±ºò°ÑÕâÀïµÄÊýÖµ¸Ä¶¯
+time = ceil((1000-abs(enemynear,pos x-pos x))*.005)                   ;.005Ê±»ºµÄÐ§¹û¿É¸Ä¶¯£¬¸ÄÍêÁËÉÏÃæºÍÏÂÃæÒ²Òª¸Ä
+movetime = ceil((1000-abs(enemynear,pos x-pos x))*.005)               ;ÕâÀïÒ²Òª¸Ä
+ignorehitpause = 1
+[State 0, SuperPause]
+type = null;SuperPause
+triggerall = roundstate = 2
+triggerall = !ishelper
+trigger1 = enemynear,pos y = pos y
+trigger1 = abs(enemynear,pos x - pos x)!= 0
+trigger1 = gametime%10 = 0                                              ;Í¬ÉÏ
+time = ceil((1000-abs(enemynear,pos x-pos x))*.005)                     ;Í¬ÉÏ
+anim = -1
+sound = -1
+pos = pos x,pos y
+movetime = ceil((1000-abs(enemynear,pos x-pos x))*.005)
+darken = 0
+p2defmul = 1
+unhittable = 0
+ignorehitpause = 1
+[State 0, Pause]
+type = null;Pause
+triggerall = roundstate = 2
+triggerall = !ishelper
+trigger1 = enemynear,pos y != pos y
+trigger1 = abs(enemynear,pos x - pos x)!= 0
+trigger1 = gametime%10 = 0                                              ;Í¬ÉÏ
+time = ceil((1000-abs((enemynear,pos x - pos x)**2+(enemynear,pos y - pos y)**2)**.5)*.005)   ;Í¬ÉÏ
+movetime = ceil((1000-((enemynear,pos x - pos x)**2+(enemynear,pos y - pos y)**2)**.5)*.005)   ;Í¬ÉÏ
+ignorehitpause = 1
+[State 0, SuperPause]
+type = null;SuperPause
+triggerall = roundstate = 2
+triggerall = !ishelper
+trigger1 = enemynear,pos y != pos y
+trigger1 = abs(enemynear,pos x - pos x)!= 0
+trigger1 = gametime%10 = 0   ;Í¬ÉÏ
+time = ceil((1000-abs((enemynear,pos x - pos x)**2+(enemynear,pos y - pos y)**2)**.5)*.005)   ;Í¬ÉÏ
+anim = -1
+sound = -1
+pos = pos x,pos y
+movetime = ceil((1000-abs((enemynear,pos x - pos x)**2+(enemynear,pos y - pos y)**2)**.5)*.005)   ;Í¬ÉÏ
+darken = 0
+p2defmul = 1
+unhittable = 0
+ignorehitpause = 1
+[State 0, SuperPause]
+type = null;SuperPause
+;triggerall = teamside = 1
+triggerall = roundstate = 2&&var(7) = 1
+trigger1 = !ishelper&&gametime%3+ceil(p2bodydist x*0.01)-random%3=1
+triggerall = var(50) = 0
+anim = 9999
+time = 1
+;sound = S10,0
+pos = 0,0
+movetime = 1
+darken = 0
+p2defmul = 1
+poweradd = 5
+unhittable = 0
+ignorehitpause = 1
+
+
+
+[State 0, SuperPause]
+type = null;SuperPause
+trigger1 = teamside = 1
+trigger1 = gametime%((ceil(ceil(300-p2bodydist x)*0.2))+0) = 0  ;????
+triggerall = roundstate = 2
+triggerall = !ishelper
+triggerall = p2bodydist x <= 300
+anim = -1
+sound = -1
+pos = 9999,9999
+movetime = 999;gametime%((ceil(ceil(p2bodydist x)*0.7))+13)
+time = 1;gametime%((ceil(ceil(p2bodydist x)*0.2))+13)
+darken = 0
+p2defmul = 1
+unhittable = 0
+ignorehitpause = 1
+;-------------------------------------------------------------------------------------------------------------
+
+
+
+
+;stand helper' helper
+[State 0, Helper]
+type = Helper
+trigger1 = roundstate = 2
+trigger1 = !numhelper(10001)
+helpertype = normal;player
+name = "è“å…‰ç‰¹æ•ˆ"
+ID = 10001
+stateno = 4
+pos = -20,-12
+postype = p1    ;p2,front,back,left,right
+facing = 0
+keyctrl = 0
+ownpal = 0
+supermovetime = 999999999
+pausemovetime = 999999999
+ignorehitpause = 1
+
+;stand helper
+[State 0, Helper]
+type = Helper
+trigger1 = Numhelper(10000) = 0
+helpertype = normal;player
+name = "SPR"
+ID = 10000
+stateno = 1
+pos = -23,-7
+postype = p1    ;p2,front,back,left,right
+facing = 0
+keyctrl = 0
+ownpal = 0
+supermovetime = 999999999
+pausemovetime = 999999999
+
+
+
+
+
+[State 0, CtrlSet]
+type = null;CtrlSet
+trigger1 = roundstate = 2&&stateno = 0&&!ishelper
+value = 1
+ignorehitpause = 1
+;persistent = 
+
+
+[State -2,????];??????
+type = null;LifeAdd
+trigger1 = helper(3000),gethitvar(damage)
+value = ifelse((helper(3000),gethitvar(damage)>0),(-(helper(3000),gethitvar(damage))*0.5),-(helper(3000),gethitvar(damage)));???????????????,?????????,????100????????0.5,??100?????
+ignorehitpause = 1
+[State -2,????];??helper??
+type = null;SelfState
+trigger1 = ishelper(3000)
+trigger1 = stateno!=3000
+value = 3000
+ignorehitpause = 1
+
+
+[State 0, LifeAdd]
+type = LifeAdd
+trigger1 = var(7) != 2
+trigger1 = gametime%10 = 0
+trigger1 = !hitover
+triggerall = alive
+triggerall = gethitvar(damage) < life
+value = 1
+kill = 1
+absolute = 0
+ 
+
+[State 0, LifeAdd]
+type = LifeAdd
+trigger1 = var(7) != 2
+trigger1 = gametime%8 = 0
+trigger1 = !hitover
+value =   ceil(gethitvar(damage)*0.1)
+triggerall = alive
+triggerall = gethitvar(damage) < life
+kill = 1
+absolute = 0
+ignorehitpause = 1
+
+[State 0, LifeAdd]
+type = LifeAdd
+trigger1 = var(7) != 2
+;trigger1 = gametime%3
+trigger1 = random <= 29
+trigger1 = !hitover
+trigger1 =  life <= 400
+triggerall = alive
+triggerall = gethitvar(damage) < life
+value = 1
+kill = 1
+absolute = 0
+ignorehitpause = 1
+
+[State 0, LifeAdd]
+type = LifeAdd
+trigger1 = var(7) != 2
+triggerall = alive
+triggerall = gethitvar(damage) < life
+triggerall = movetype != H
+trigger1 = timemod = 10,0
+value = 1
+kill = 0
+absolute = 1
+ignorehitpause = 1
+
+
+
+[State 0, VarAdd]
+type = VarAdd
+trigger1 = var(7) = 1
+trigger1 = gametime%15 = 0
+trigger1 = !hitover
+triggerall = alive
+triggerall = gethitvar(damage) < life
+v = 36    ;fv = 
+value = 1
+ignorehitpause = 1
+
+[State 0, VarAdd]
+type = VarAdd
+trigger1 = var(7) = 1
+trigger1 = gametime%10 = 0
+trigger1 = !hitover
+value =   ceil(gethitvar(damage)*0.1)
+triggerall = alive
+triggerall = gethitvar(damage) < life
+v = 36    ;fv = 
+ignorehitpause = 1
+
+[State 0, VarAdd]
+type = VarAdd
+trigger1 = var(7) = 1
+trigger1 = random <= 29
+trigger1 = !hitover
+trigger1 =  life <= 400
+triggerall = alive
+triggerall = gethitvar(damage) < life
+v = 36    ;fv = 
+value = 1
+ignorehitpause = 1
+
+[State 0, VarAdd]
+type = VarAdd
+trigger1 = var(7) = 1
+triggerall = alive
+triggerall = gethitvar(damage) < life
+triggerall = movetype != H
+trigger1 = timemod = 10,0
+v = 36    ;fv = 
+value = 1
+ignorehitpause = 1
+
+
+
+
+
+
+
+;======================================
+;Jotaro's theme + Superpause override (helper)
+[Statedef 100000]
+type = U
+movetype =a; U
+physics = N
+ctrl = 0
+hitdefpersist = 1
+movehitpersist = 1
+[State 0, Helper]
+type = Helper
+trigger1 = !numhelper(100002)&&root,var(50)=0&&root,var(51)=0&&root,var(26)
+helpertype = normal ;player
+name = ""
+ID = 100002
+stateno = 100002
+pos = 0,0
+postype = p1    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 0
+supermovetime = 999999999
+pausemovetime = 999999999
+;size.xscale = 
+;size.yscale = 
+;size.ground.back = 
+;size.ground.front = 
+;size.air.back = 
+;size.air.front = 
+;size.height = 
+;size.proj.doscale = 
+;size.head.pos = , 
+;size.mid.pos = , 
+;size.shadowoffset = 
+ignorehitpause = 1
+;persistent = 
+
+
+[State 0, BGPalFX]
+type = BGPalFX
+trigger1 = root,time <= 31
+trigger1 = root,stateno = 1001||root,stateno = 2001||root,stateno = 3001||root,stateno = 6000||root,stateno = 7000||root,stateno = 8000||root,stateno = 9000||root,stateno = 1200||root,stateno = 1100
+time = 31
+;add = 0,0,0
+;mul = 256,256,256
+;sinadd = 0,0,0,10
+invertall = 0
+color = 30
+ignorehitpause = 1
+;persistent = 
+
+[State 0, VarSet]
+type = VarSet
+trigger1 = root,var(50) = 1
+v = 23    
+value = 0
+;ignorehitpause = 
+;persistent = 
+
+[State ]
+type = Changeanim
+trigger1 = name = "Jotaro-SPR"
+trigger1 = ishelper
+triggerall = numtarget
+value = 99990 ;(没有动画）
+ignorehitpause = 1
+
+[state ]
+type = changeanim
+triggerall = ishelper(100000)
+trigger1 = !numtarget
+value = 9999;(全屏红框)
+ignorehitpause = 1
+
+[State ]
+type = null;Statetypeset
+triggerall = name = "Jotaro-SPR"
+triggerall = ishelper(100000)
+trigger1 = !numtarget
+trigger2 = numtarget
+trigger2 = target,ishelper
+statetype = A
+movetype = A
+physics = N
+ignorehitpause = 1
+
+[State ]
+type =null; Statetypeset
+triggerall = name = "Jotaro-SPR"
+triggerall = ishelper(100000)
+trigger1 = numtarget
+trigger1 = !target,ishelper
+statetype = A
+movetype = i
+physics = N
+ignorehitpause = 1
+
+[State ]
+type = HitDef
+triggerall = name = "Jotaro-SPR" 
+triggerall = ishelper(100000)
+triggerall = roundstate = 2&&root,var(50) != 0
+triggerall = (enemy,authorname != "MOHET"&&enemynear,authorname != "MOHET")||((enemy,authorname  = "MOHET"&&enemy,var(50) = 0)&&(enemynear,authorname  = "MOHET"&&enemynear,var(50) = 0))
+;triggerall = roundstate = 2  ;(战斗中，当然也可以常时）
+;trigger2 = numtarget < 2
+trigger1 = !numtarget	;||(enemynear,teammode = simul &&numtarget <2);&&enemynear,teammode != simul
+attr = , AA, AT, AP
+animtype = hard
+damage = 0,0
+hitflag = MAFD
+guard.dist = 0
+guardflag = 
+pausetime = 0,0
+sparkno = -1
+guard.sparkno = -1
+hitsound = -1
+guardsound = -1
+numhits = 0
+affectteam = E
+ignorehitpause = 1
+
+[State ]
+type = Targetdrop
+triggerall = name = "Jotaro-SPR"
+triggerall = ishelper(100000)
+trigger2 = root,var(50) = 0
+triggerall = numtarget
+trigger1 = target,ishelper || !target,alive
+;triggerall = enemynear,teammode != simul
+ignorehitpause = 1
+
+[State 永续]
+type = ReversalDef
+triggerall = name = "Jotaro-SPR"
+triggerall = roundstate = 2&&root,var(50) != 0
+triggerall = ishelper(100000)
+trigger1 = numtarget
+trigger1 = !target,ishelper
+;triggerall = enemynear,teammode != simul
+reversal.attr = SCA, AA, AT, AP
+numhits = 0
+guard.dist = 0
+guardflag = 
+pausetime = 0,0
+sparkno = -1
+guard.sparkno = -1
+hitsound = -1
+guardsound = -1
+ignorehitpause = 1
+
+[State 0, PosSet]
+type = null;PosSet
+trigger1 = 1
+x = 0
+y = -999
+;ignorehitpause = 
+;persistent = 
+
+[State 0, ScreenBound]
+type = ScreenBound
+trigger1 = 1
+value = 0
+movecamera = 0,0
+;ignorehitpause = 
+;persistent = 
+
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = timemod = 18480,0
+value = S1000,0
+volumescale = 60
+channel = 2
+
+
+
+[State 0, NotHitBy]
+type = NotHitBy
+trigger1 = 1
+value = SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT
+;value2 = S,NA
+time = 99999
+;ignorehitpause = 
+;persistent = 
+
+[State 0, SuperPause]
+type = null;SuperPause
+trigger1 = var(16) = 1 || root,var(16) = 1
+triggerall = root,var(51) = 0
+triggerall = roundstate <= 2
+triggerall = root,stateno != 1001&&root,stateno != 2001&&root,stateno != 6000&&root,stateno != 7000
+triggerall = root,time > 3
+triggerall = !numexplod(7400)&&root,numexplod (7400) =0
+time = 0
+anim = 9999
+;sound = S10,0
+pos = 0,0
+movetime = 0
+darken = 0
+p2defmul = 1
+poweradd = 0
+unhittable = 1
+ignorehitpause = 1
+;persistent = 
+
+[State 0, Pause]
+type = null;Pause
+triggerall = var(16) = 1 || root,var(16) = 1
+triggerall = root,var(50) <= 0
+triggerall = roundstate <= 2
+trigger1 = enemy,authorname != "MOHET"&& enemynear,authorname != "MOHET";(enemy,authorname = "MOHET"&&enemy,stateno != 1300&&enemy,stateno != 1301&&enemy,stateno != 1302)&&(enemynear,authorname = "MOHET"&&enemynear,stateno != 1300&&enemynear,stateno != 1301&&enemynear,stateno != 1302)
+time = 0
+movetime = 0
+;endcmdbuftime = 0
+;pausebg = 1
+ignorehitpause = 1
+;persistent = 
+
+
+[State 0, VarAdd]
+type = VarAdd
+trigger1 = var(9) < 1040
+v =9     ;fv = 
+value = 1
+;ignorehitpause = 
+;persistent = 
+
+[State 0, VarSet]
+type = VarSet
+trigger1 = var(9) = 1040
+v = 9    
+value = 0
+;ignorehitpause = 
+;persistent = 
+
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+;flag = intro
+;flag2 = invisible
+;flag3 = roundnotover
+;ignorehitpause = 
+;persistent = 
+;-----------------------
+;flag = nobardisplay
+;flag = noBG
+;flag = noFG
+;flag = nostandguard
+;flag = nocrouchguard
+;flag = noairguard
+;flag = noautoturn
+;ppflag = nojugglecheck
+;flag = nokosnd
+flag3 = nokoslow
+flag2 = noshadow
+;flag = globalnoshadow
+flag = nomusic
+;flag = nowalk
+;flag = timerfreeze
+;flag = unguardable
+
+
+[State 0, VarSet]
+type = VarSet
+trigger1 = root,var(50) = var(25)
+
+;triggerall = enemynear,teammode != simul
+v = 24    
+value = cond(!numtarget,enemynear,life,target,life)
+;ignorehitpause = 
+;persistent = 
+[State 0, VarSet]
+type = VarSet
+trigger1 = root,var(50)=0
+v = 25    
+value = 0
+ignorehitpause = 1
+;persistent = 
+[State 0, VarSet]
+type = VarSet
+trigger1 = movehit&&!var(25)
+v = 25    
+value = root,var(50)
+ignorehitpause = 1
+;persistent = 
+
+
+
+[State 0, VarAdd]
+type = VarAdd
+triggerall = root,var(50)> 0
+;triggerall = enemynear,teammode != simul
+trigger1 =1; movehit;&&time = 8
+v = 23    ;fv = 
+value = target,gethitvar(damage)
+ignorehitpause = 1
+;persistent = 
+[State 0, TargetLifeAdd]
+type = null;TargetLifeAdd
+triggerall = root,var(50)> 0
+trigger1 = 1;movehit;&&time = 8
+value = target,gethitvar(damage)*(root,movehit = 0);/(((helper(8002),stateno = 8002))*8+1-(helper(8002),stateno = 8002))
+ID = -1
+kill = 1
+absolute = 0
+ignorehitpause = 1
+;persistent = 
+[State 0, TargetLifeAdd]
+type = TargetLifeAdd
+trigger1 = root,var(50)<599&&root,var(50)>10
+;triggerall = enemynear,teammode != simul
+triggerall = (enemy,authorname != "MOHET"&&enemynear,authorname != "MOHET")||((enemy,authorname  = "MOHET"&&enemy,var(50) = 0)&&(enemynear,authorname  = "MOHET"&&enemynear,var(50) = 0))
+;triggerall = var(24)-target,life != 0
+value = var(24)-target,life
+ID = -1
+kill = 1
+absolute = 0
+;ignorehitpause = 
+;persistent = 
+[State 0, BindToRoot]
+type = null;BindToRoot
+trigger1 = 1
+time = 1
+;facing = 0
+pos = 0,0
+ignorehitpause = 	1
+;persistent = 
+
+[State 0, PosSet]
+type = null;PosSet
+trigger1 = ID = 100000
+x = enemy,pos x
+y = enemy,pos y
+ignorehitpause = 1
+;persistent = 
+
+[State 0, PosSet]
+type = null;PosSet
+trigger1 = 1;ID = 100000
+x = enemynear,pos x-root,facing
+y = enemynear,pos y
+ignorehitpause = 1
+;persistent = 
+
+[State 0, BindToRoot]
+type = BindToRoot
+trigger1 = 1;teamside = 1
+time = 1
+;facing = 0
+pos = (root,pos x -enemynear,pos x- (cond(root,pos x-enemynear,pos x <0,-5,5)))*-root,facing,-root,pos y +enemynear,pos y
+ignorehitpause = 1
+;persistent = 
+
+
+[State ]
+type = varset
+trigger1 = !var(55)
+var(55)=enemynear,id
+ignorehitpause=1
+
+
+
+;persistent = 1
+
+[State 0, TargetLifeAdd]
+type = TargetLifeAdd
+triggerall = root,var(50)= 2
+;triggerall = enemynear,teammode != simul
+triggerall = (enemy,authorname != "MOHET"&&enemynear,authorname != "MOHET")||((enemy,authorname  = "MOHET"&&enemy,var(50) = 0)&&(enemynear,authorname  = "MOHET"&&enemynear,var(50) = 0))
+trigger1 = 1
+value = -ceil(var(23)*(cond(target,lifemax<=1000,1,target,lifemax*0.001))*(cond(target,const(data.defence)<=100,1,target,const(data.defence)*0.01)))
+ID = -1
+kill = 1
+absolute = 0
+;ignorehitpause = 
+;persistent = 
+
+
+[State 0, HitDef]
+type = HitDef
+trigger1 = numtarget
+triggerall = target,life = var(24)&&root,var(50)=1
+attr = ,NA        ;SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT
+hitflag = MAFD        ;HLAFD+-
+guardflag = MAD         ;HLA
+;affectteam = E          ;B,E,F
+animtype = light          ;light,medium,hard,back,up,diagup
+air.animtype = light
+;fall.animtype = Back
+;priority = 4,Hit
+damage = ceil(var(23)*(cond(target,lifemax<=1000,1,target,lifemax*0.001))*(cond(target,const(data.defence)<=100,1,target,const(data.defence)*0.01)))+target,const(data.defence),ceil(var(23)*(cond(target,lifemax<=1000,1,target,lifemax*0.001))*(cond(target,const(data.defence)<=100,1,target,const(data.defence)*0.01)))+target,const(data.defence)
+pausetime = 0,0
+ground.type = High
+ground.slidetime = 0
+ground.hittime = 0
+air.hittime = 1
+ground.velocity = 0,0
+air.velocity = 0,0
+sprpriority = 5
+p1getp2facing = 0
+down.bounce = 0
+id = 0
+chainID = -1
+nochainID = -1
+hitonce = 1
+kill = 1
+guard.kill = 1
+fall.kill = 1
+numhits = 1
+palfx.time = 0
+envshake.time = 0
+ignorehitpause = 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;======================================
+;Jotaro's theme + Superpause override (helper)
+[Statedef 100001]
+type = U
+movetype =a; U
+physics = N
+ctrl = 0
+hitdefpersist = 1
+movehitpersist = 1
+
+[State 0, BGPalFX]
+type = BGPalFX
+trigger1 = root,time <= 31
+trigger1 = root,stateno = 1001||root,stateno = 2001||root,stateno = 3001||root,stateno = 6000||root,stateno = 7000||root,stateno = 8000||root,stateno = 9000||root,stateno = 1200||root,stateno = 1100
+time = 31
+;add = 0,0,0
+;mul = 256,256,256
+;sinadd = 0,0,0,10
+invertall = 0
+color = 30
+ignorehitpause = 1
+;persistent = 
+
+[State 0, VarSet]
+type = VarSet
+trigger1 = root,var(50) = 1
+v = 23    
+value = 0
+;ignorehitpause = 
+;persistent = 
+
+[State ]
+type = Changeanim
+trigger1 = name = "Jotaro-SPR"
+trigger1 = ishelper
+triggerall = numtarget
+value = 99990 ;(没有动画）
+ignorehitpause = 1
+
+[state ]
+type = changeanim
+triggerall = ishelper(100001)
+trigger1 = !numtarget
+value = 9999;(全屏红框)
+ignorehitpause = 1
+
+[State ]
+type = null;Statetypeset
+triggerall = name = "Jotaro-SPR"
+triggerall = ishelper(100001)
+trigger1 = !numtarget
+trigger2 = numtarget
+trigger2 = target,ishelper
+statetype = A
+movetype = A
+physics = N
+ignorehitpause = 1
+
+[State ]
+type =null; Statetypeset
+triggerall = name = "Jotaro-SPR"
+triggerall = ishelper(100001)
+trigger1 = numtarget
+trigger1 = !target,ishelper
+statetype = A
+movetype = i
+physics = N
+ignorehitpause = 1
+
+[State ]
+type = HitDef
+triggerall = name = "Jotaro-SPR" 
+triggerall = ishelper(100001)
+triggerall = roundstate = 2&&root,var(50) != 0
+triggerall = (enemy,authorname != "MOHET"&&enemynear,authorname != "MOHET")||((enemy,authorname  = "MOHET"&&enemy,var(50) = 0)&&(enemynear,authorname  = "MOHET"&&enemynear,var(50) = 0))
+;triggerall = roundstate = 2  ;(战斗中，当然也可以常时）
+;trigger2 = numtarget < 2
+trigger1 = !numtarget	;||(enemynear,teammode = simul &&numtarget <2);&&enemynear,teammode != simul
+attr = , AA, AT, AP
+animtype = hard
+damage = 0,0
+hitflag = MAFD
+guard.dist = 0
+guardflag = 
+pausetime = 0,0
+sparkno = -1
+guard.sparkno = -1
+hitsound = -1
+guardsound = -1
+numhits = 0
+affectteam = E
+ignorehitpause = 1
+
+[State ]
+type = Targetdrop
+triggerall = name = "Jotaro-SPR"
+triggerall = ishelper(100001)
+trigger2 = root,var(50) = 0
+triggerall = numtarget
+trigger1 = target,ishelper || !target,alive
+;triggerall = enemynear,teammode != simul
+ignorehitpause = 1
+
+[State 永续]
+type = ReversalDef
+triggerall = name = "Jotaro-SPR"
+triggerall = roundstate = 2&&root,var(50) != 0
+triggerall = ishelper(100001)
+trigger1 = numtarget
+trigger1 = !target,ishelper
+;triggerall = enemynear,teammode != simul
+reversal.attr = SCA, AA, AT, AP
+numhits = 0
+guard.dist = 0
+guardflag = 
+pausetime = 0,0
+sparkno = -1
+guard.sparkno = -1
+hitsound = -1
+guardsound = -1
+ignorehitpause = 1
+
+[State 0, PosSet]
+type = null;PosSet
+trigger1 = 1
+x = 0
+y = -999
+;ignorehitpause = 
+;persistent = 
+
+[State 0, ScreenBound]
+type = ScreenBound
+trigger1 = 1
+value = 0
+movecamera = 0,0
+;ignorehitpause = 
+;persistent = 
+
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = timemod = 18480,0
+value = S1000,0
+volumescale = 60
+channel = 2
+
+
+
+[State 0, NotHitBy]
+type = NotHitBy
+trigger1 = 1
+value = SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT
+;value2 = S,NA
+time = 99999
+;ignorehitpause = 
+;persistent = 
+
+[State 0, SuperPause]
+type = null;SuperPause
+trigger1 = var(16) = 1 || root,var(16) = 1
+triggerall = root,var(51) = 0
+triggerall = roundstate <= 2
+triggerall = root,stateno != 1001&&root,stateno != 2001&&root,stateno != 6000&&root,stateno != 7000
+triggerall = root,time > 3
+triggerall = !numexplod(7400)&&root,numexplod (7400) =0
+time = 0
+anim = 9999
+;sound = S10,0
+pos = 0,0
+movetime = 0
+darken = 0
+p2defmul = 1
+poweradd = 0
+unhittable = 1
+ignorehitpause = 1
+;persistent = 
+
+[State 0, Pause]
+type = null;Pause
+triggerall = var(16) = 1 || root,var(16) = 1
+triggerall = root,var(50) <= 0
+triggerall = roundstate <= 2
+trigger1 = enemy,authorname != "MOHET"&& enemynear,authorname != "MOHET";(enemy,authorname = "MOHET"&&enemy,stateno != 1300&&enemy,stateno != 1301&&enemy,stateno != 1302)&&(enemynear,authorname = "MOHET"&&enemynear,stateno != 1300&&enemynear,stateno != 1301&&enemynear,stateno != 1302)
+time = 0
+movetime = 0
+;endcmdbuftime = 0
+;pausebg = 1
+ignorehitpause = 1
+;persistent = 
+
+
+[State 0, VarAdd]
+type = VarAdd
+trigger1 = var(9) < 1040
+v =9     ;fv = 
+value = 1
+;ignorehitpause = 
+;persistent = 
+
+[State 0, VarSet]
+type = VarSet
+trigger1 = var(9) = 1040
+v = 9    
+value = 0
+;ignorehitpause = 
+;persistent = 
+
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+;flag = intro
+;flag2 = invisible
+;flag3 = roundnotover
+;ignorehitpause = 
+;persistent = 
+;-----------------------
+;flag = nobardisplay
+;flag = noBG
+;flag = noFG
+;flag = nostandguard
+;flag = nocrouchguard
+;flag = noairguard
+;flag = noautoturn
+;ppflag = nojugglecheck
+;flag = nokosnd
+flag3 = nokoslow
+flag2 = noshadow
+;flag = globalnoshadow
+flag = nomusic
+;flag = nowalk
+;flag = timerfreeze
+;flag = unguardable
+
+
+[State 0, VarSet]
+type = VarSet
+trigger1 = root,var(50) = var(25)
+
+;triggerall = enemynear,teammode != simul
+v = 24    
+value = cond(!numtarget,enemynear,life,target,life)
+;ignorehitpause = 
+;persistent = 
+[State 0, VarSet]
+type = VarSet
+trigger1 = root,var(50)=0
+v = 25    
+value = 0
+ignorehitpause = 1
+;persistent = 
+[State 0, VarSet]
+type = VarSet
+trigger1 = movehit&&!var(25)
+v = 25    
+value = root,var(50)
+ignorehitpause = 1
+;persistent = 
+
+
+
+
+[State 0, VarAdd]
+type = VarAdd
+triggerall = root,var(50)> 0
+;triggerall = enemynear,teammode != simul
+trigger1 =1; movehit;&&time = 8
+v = 23    ;fv = 
+value = target,gethitvar(damage)
+ignorehitpause = 1
+;persistent = 
+[State 0, TargetLifeAdd]
+type = null;TargetLifeAdd
+triggerall = root,var(50)> 0
+trigger1 = 1;movehit;&&time = 8
+value = target,gethitvar(damage)*(root,movehit = 0);/(((helper(8002),stateno = 8002))*8+1-(helper(8002),stateno = 8002))
+ID = -1
+kill = 1
+absolute = 0
+ignorehitpause = 1
+;persistent = 
+[State 0, TargetLifeAdd]
+type = TargetLifeAdd
+trigger1 = root,var(50)<599&&root,var(50)>10
+;triggerall = enemynear,teammode != simul
+triggerall = (enemy,authorname != "MOHET"&&enemynear,authorname != "MOHET")||((enemy,authorname  = "MOHET"&&enemy,var(50) = 0)&&(enemynear,authorname  = "MOHET"&&enemynear,var(50) = 0))
+;triggerall = var(24)-target,life != 0
+value = var(24)-target,life
+ID = -1
+kill = 1
+absolute = 0
+;ignorehitpause = 
+;persistent = 
+[State 0, BindToRoot]
+type = null;BindToRoot
+trigger1 = 1
+time = 1
+;facing = 0
+pos = 0,0
+ignorehitpause = 	1
+;persistent = 
+
+[State 0, PosSet]
+type = null;PosSet
+trigger1 = ID = 100000
+x = enemy,pos x
+y = enemy,pos y
+ignorehitpause = 1
+;persistent = 
+
+[State 0, PosSet]
+type = null;PosSet
+trigger1 = 1;ID = 100000
+x = enemynear,pos x-root,facing
+y = enemynear,pos y
+ignorehitpause = 1
+;persistent = 
+
+
+
+[State 0, BindToRoot]
+type = BindToRoot
+trigger1 = 1;teamside = 1
+time = 1
+;facing = 0
+pos = (root,pos x -enemynear(1),pos x- (cond(root,pos x-enemynear(1),pos x <0,-5,5)))*-root,facing,-root,pos y +enemynear(1),pos y
+ignorehitpause = 1
+;persistent = 
+[State ]
+type = varset
+trigger1 = !var(55)
+var(55)=enemynear,id
+ignorehitpause=1
+
+[State ]
+type = varset
+trigger1=!var(60)
+;trigger1=var(55)
+trigger1=enemynear,numpartner  = 1
+;trigger1=enemynear(1),id !=var(55)
+var(60)=enemynear(1),id
+ignorehitpause=1
+;persistent = 1
+
+[State 0, TargetLifeAdd]
+type = TargetLifeAdd
+triggerall = root,var(50)= 2
+;triggerall = enemynear,teammode != simul
+triggerall = (enemynear(1),authorname != "MOHET"&&enemynear,authorname != "MOHET")||((enemynear(1),authorname  = "MOHET"&&enemynear(1),var(50) = 0)&&(enemynear,authorname  = "MOHET"&&enemynear,var(50) = 0))
+trigger1 = 1
+value = -var(23)*(cond(target,lifemax<=1000,1,target,lifemax*0.001))*(cond(target,const(data.defence)<=100,1,target,const(data.defence)*0.01));*0.7
+ID = -1
+kill = 1
+absolute = 0
+;ignorehitpause = 
+;persistent = 
+[State 0, HitDef]
+type = HitDef
+trigger1 = numtarget
+triggerall = target,life = var(24)&&root,var(50)=1
+attr = ,NA        ;SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT
+hitflag = MAFD        ;HLAFD+-
+guardflag = MAD         ;HLA
+;affectteam = E          ;B,E,F
+animtype = light          ;light,medium,hard,back,up,diagup
+air.animtype = light
+;fall.animtype = Back
+;priority = 4,Hit
+damage = ceil(var(23)*(cond(target,lifemax<=1000,1,target,lifemax*0.001))*(cond(target,const(data.defence)<=100,1,target,const(data.defence)*0.01)))+target,const(data.defence),ceil(var(23)*(cond(target,lifemax<=1000,1,target,lifemax*0.001))*(cond(target,const(data.defence)<=100,1,target,const(data.defence)*0.01)))+target,const(data.defence)
+pausetime = 0,0
+ground.type = High
+ground.slidetime = 0
+ground.hittime = 0
+air.hittime = 1
+ground.velocity = 0,0
+air.velocity = 0,0
+sprpriority = 5
+p1getp2facing = 0
+down.bounce = 0
+id = 0
+chainID = -1
+nochainID = -1
+hitonce = 1
+kill = 1
+guard.kill = 1
+fall.kill = 1
+numhits = 1
+palfx.time = 0
+envshake.time = 0
+ignorehitpause = 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[statedef 100002]
+anim = 9999
+movetype = I
+
+[State 0, Pause]
+type = Pause
+trigger1 = root,var(50)=0&&root,var(51)=0&&roundstate <=2&&enemynear,authorname!="MOHET";&&root,var(25)=0;&&((root,stateno%100!=[0,1])||root,stateno < 1000)
+time = 0;cond(gametime%3+ceil(p2bodydist x*0.01)-random%3=1&&var(7) = 1,1,0);cond(((root,stateno%100!=[0,1])||root,stateno < 1000)&&root,var(25)=0,0,5)
+movetime = 5
+;endcmdbuftime = 0
+;pausebg = 1
+ignorehitpause = 1
+;persistent = 
+
+[State 0, SuperPause]
+type = SuperPause
+trigger1 = root,var(50)=0&&root,var(51)=0&&roundstate <=2&&enemynear,authorname!="MOHET";&&root,var(25)=0;&&((root,stateno%100!=[0,1])||root,stateno < 1000)
+time = 0;cond(gametime%3+ceil(p2bodydist x*0.01)-random%3=1&&var(7) = 1,1,0);cond(((root,stateno%100!=[0,1])||root,stateno < 1000)&&root,var(25)=0,0,5)
+anim = 9999
+;sound = S10,0
+pos = 0,0
+movetime = 5
+darken = 0
+p2defmul = 1
+poweradd = 0
+unhittable = 1
+ignorehitpause = 1
+;persistent = 
+
+[State 0, DestroySelf]
+type = DestroySelf
+trigger1 = 1
+ignorehitpause = 1
+;persistent = 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[statedef 2333333]
+type = U
+movetype = A
+physics = N
+ctrl = 0
+hitdefpersist = 1
+movehitpersist = 1
+
+
+
+
+
+
+
+[State 0, BindToRoot]
+type = BindToRoot
+trigger1 = 1
+time = 1
+pos = 0,0
+ignorehitpause = 1
+
+[State ]
+type = Changeanim
+trigger1 = ishelper
+value = 99990 ;(没有动画）
+ignorehitpause = 1
+
+[state ]
+type = changeanim
+triggerall = ishelper(2333333)
+trigger1 = !numtarget
+value = 99999;(全屏红框)
+ignorehitpause = 1
+
+[State ]
+type = Statetypeset
+triggerall = ishelper(2333333)
+trigger1 = !numtarget
+trigger2 = numtarget
+trigger2 = target,ishelper
+statetype = A
+movetype = A
+physics = N
+ignorehitpause = 1
+
+[State ]
+type = Statetypeset
+triggerall = ishelper(2333333)
+trigger1 = numtarget
+trigger1 = !target,ishelper
+statetype = A
+movetype = i
+physics = N
+ignorehitpause = 1
+[State ]
+type = null;HitDef
+triggerall = ishelper(2333333)
+triggerall = roundstate = 2  ;(战斗中，当然也可以常时）
+trigger1 = !numtarget&&(time>10&&random%2)
+attr = ,NA        ;SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT
+hitflag = MAFD       ;HLAFD+-
+guardflag = MA         ;HLA
+;affectteam = E          ;B,E,F
+animtype = light          ;light,medium,hard,back,up,diagup
+air.animtype = light
+;fall.animtype = Back
+;priority = 4,Hit
+damage = 70,0
+pausetime = 3 ,15
+;guard.pausetime = 0,0
+;sparkno = S3000
+;guard.sparkno = S3100
+sparkxy = 20,0
+;hitsound = S1,0
+;uardsound = S2,0
+ground.type = High      ;Low,Trip,None
+;air.type = High
+ground.slidetime = 0
+;guard.slidetime = 0
+ground.hittime = 0
+;guard.hittime = 0
+air.hittime = 20
+;guard.ctrltime = 0
+;guard.dist = 320
+;yaccel = 0.5
+ground.velocity = -2,-8
+;guard.velocity = 0
+air.velocity = -2,-8
+;airguard.velocity = 0,0
+;ground.cornerpush.veloff = 0
+;air.cornerpush.veloff = 0
+;down.cornerpush.veloff = 0
+;guard.cornerpush.veloff = 0
+;airguard.cornerpush.veloff = 0
+;airguard.ctrltime = 0
+;air.juggle = 0
+;mindist = 0,0
+;maxdist = 0,0
+;snap = 0,0
+sprpriority = 1
+;p1facing = 
+p1getp2facing = 0
+;p2facing = 
+;p1stateno = 
+;p2stateno = 
+;p2getp1state = 1
+;forcestand = 0
+fall = 1
+;fall.xvelocity = 0
+fall.yvelocity = -4.5
+fall.recover = 1
+fall.recovertime = 4
+fall.damage = 30
+;air.fall = 0
+;down.velocity = 0,0
+;down.hittime = 0
+down.bounce = 0
+id = 0
+chainID = -1
+nochainID = -1
+hitonce = 1
+kill = 1
+guard.kill = 1
+fall.kill = 1
+numhits = 1
+;getpower = 0,0
+;givepower = 0,0
+palfx.time = 0
+;palfx.mul = 
+;palfx.add = 
+envshake.time = 10
+;envshake.freq =
+;envshake.ampl = 
+;envshake.phase =
+fall.envshake.time = 5
+;fall.envshake.freq = 
+;fall.envshake.ampl = 
+;fall.envshake.phase =
+;ignorehitpause = 1
+;persistent = 
+[State 0, DisplayToClipboard]
+type = DisplayToClipboard
+trigger1 = 1
+text = "numtarget = %d ,targetis = %d"
+params = numtarget,cond(target,ishelper,1,0)
+ignorehitpause = 1
+
+
+[State ]
+type = HitDef
+triggerall = ishelper(2333333)
+triggerall = roundstate = 2  ;(战斗中，当然也可以常时）
+trigger1 = !numtarget;&&(time<100||!random%2)
+attr = , AA, AT, AP
+animtype = hard
+damage = 1
+guard.dist = 0
+guardflag = 
+pausetime = 0,0
+sparkno = -1
+guard.sparkno = -1
+hitsound = -1
+guardsound = -1
+numhits = 1
+affectteam = E
+ignorehitpause = 1
+
+[State ]
+type = null;Targetdrop
+triggerall = ishelper(2333333)
+trigger1 = numtarget
+trigger1 = target,ishelper || !target,alive
+ignorehitpause = 1
+
+[State 永续]
+type = ReversalDef
+triggerall = ishelper(2333333)
+trigger1 = numtarget
+;trigger1 = !target,ishelper
+reversal.attr = SCA, AA, AT, AP
+numhits = 0
+guard.dist = 0
+guardflag = 
+pausetime = 0,0
+sparkno = -1
+guard.sparkno = -1
+hitsound = -1
+guardsound = -1
+ignorehitpause = 1
+
+[state ]
+type = null;targetlifeadd
+trigger1 = numtarget
+value = -2333333333
+absolute = 1
+kill = 1
+persistent = 256
+ignorehitpause = 1
+
+[state ]
+type = null;targetstate 
+triggerall = numtarget
+trigger1 = numhelper(802)
+trigger1 = target,stateno != 88891
+value = 13 ;（敌处理状态号）
+persistent = 256
+ignorehitpause = 1
+;超即死
+[State 0, TargetState]
+type = targetstate
+triggerall = target,hitpausetime < 2
+triggerall = target,alive != 0
+triggerall = target,stateno !=13
+triggerall = target,stateno !=88891
+triggerall = target,alive
+trigger1 = numhelper(802)
+value = 13
+ignorehitpause = 1
+[State 0, TargetState]
+type = targetstate
+triggerall = target,hitpausetime >= 2
+triggerall = target,alive != 0
+triggerall = target,stateno !=13
+triggerall = target,stateno !=88891
+triggerall = target,alive
+trigger1 = numhelper(802)
+value = 88891
+ignorehitpause = 1
+
+
+[state ]
+type = targetstate
+triggerall = target,stateno != 13
+triggerall = !movehit 
+trigger1 = (root,var(35)||root,stateno = 1901)&&root,var(57)
+trigger1 = target,stateno != [5000,5210]
+trigger1 = root,stateno != 3460
+value = 50001
+persistent = 256
+ignorehitpause = 1
+
+
+
+[state ]
+type = null;targetstate 
+triggerall = numtarget&&target,time>0
+trigger1 = root,movehit
+trigger1 = (root,numtarget)
+trigger2 = 0;helper,movehit
+trigger2 = (helper,numtarget)
+trigger3 = numpartner
+trigger3 = partner,movehit
+trigger3= (partner,numtarget)
+value = 50010 ;（敌处理状态号）
+persistent = 256
+ignorehitpause = 1
+
+
+
+
+[State ]
+type = varset
+trigger1 = numtarget
+var(0) = target,life
+ignorehitpause = 1
+[State ]
+type = varset
+triggerall = numtarget
+trigger1 = !var(1)||target,life <= 0
+trigger2 = var(1)>var(0)||var(0) = 0
+var(1) = target,life
+ignorehitpause = 1
+[State ]
+type = targetlifeadd
+triggerall = 1
+trigger1 = var(1)<var(0)
+value = ifelse(target,life>0,-(var(0)-var(1)),cond(!gametime%15,-1,0))
+absolute = 1
+ignorehitpause = 1
+
+
+
+
+
+
+
+
+
+
+[statedef 50001]
+movetype = i
+ctrl =0 
+anim = 5000
+velset = 0,0
+
+
+
+[state ]
+type = lifeadd
+trigger1 = 1;time = 0
+value = -gethitvar(damage);-2333333333
+absolute = 1
+kill = 1
+persistent = 256
+ignorehitpause = 1
+
+[State 0, TargetDrop]
+type = TargetDrop
+trigger1 = 1
+excludeID = -1
+keepone = 1
+ignorehitpause = 1
+;persistent = 
+
+[State 0, DestroySelf]
+type = DestroySelf
+trigger1 = ishelper
+ignorehitpause = 1
+;persistent = 
+
+[State 0, SelfState]
+type = SelfState
+trigger1 =p2movetype !=A||time
+value = 5000
+;anim =
+ctrl =1
+ignorehitpause = 0
+;persistent = 1
+
+[State 0, NotHitBy]
+type = NotHitBy
+trigger1 = ishelper
+value = C,NP
+value2 = C,NP
+time = 0
+ignorehitpause = 1
+
+[State 0, HitFallDamage]
+type = HitFallDamage
+trigger1 = 1
+ignorehitpause = 1
+
+[state ]
+type=hitby
+trigger1=1;name!="Dio Brando"
+value=SCA,AA,AT,AP
+ignorehitpause=1
+[state ]
+type=hitby
+trigger1=1;name!="Dio Brando"
+value2=SCA,AA,AT,AP
+ignorehitpause=1
+[State 0, HitOverride]
+type = HitOverride
+triggerall = !ishelper
+trigger1 = 1
+attr = C,NP
+slot = 0
+stateno = -1
+time = 0
+ignorehitpause = 1
+[State 0, HitOverride]
+type = HitOverride
+triggerall = !ishelper
+trigger1 = 1
+attr = C,NP
+slot = 1
+stateno = -1
+time = 0
+ignorehitpause = 1
+[State 0, HitOverride]
+type = HitOverride
+triggerall = !ishelper
+trigger1 = 1
+attr = C,NP
+slot = 2
+stateno = -1
+time = 0
+ignorehitpause = 1
+[State 0, HitOverride]
+type = HitOverride
+triggerall = !ishelper
+trigger1 = 1
+attr = C,NP
+slot = 3
+stateno = -1
+time = 0
+ignorehitpause = 1
+[State 0, HitOverride]
+type = HitOverride
+triggerall = !ishelper
+trigger1 = 1
+attr = C,NP
+slot = 4
+stateno = -1
+time = 0
+ignorehitpause = 1
+[State 0, HitOverride]
+type = HitOverride
+triggerall = !ishelper
+trigger1 = 1
+attr = C,NP
+slot = 5
+stateno = -1
+time = 0
+ignorehitpause = 1
+[State 0, HitOverride]
+type = HitOverride
+triggerall = !ishelper
+trigger1 = 1
+attr = C,NP
+slot = 6
+stateno = -1
+time = 0
+ignorehitpause = 1
+[State 0, HitOverride]
+type = HitOverride
+triggerall = !ishelper
+trigger1 = 1
+attr = C,NP
+slot = 7
+stateno = -1
+time = 0
+ignorehitpause = 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[statedef 2536]
+movetype = A
+anim = 99999
+poweradd = -300+floor(gametime*0.005)
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = enemynear,life > 0||enemy,life > 0
+flag = noko
+ignorehitpause = 1
+
+[State 40, 柪巕僙儞僞乕傊]
+type = lifeset
+trigger1 = prevstateno = 11500
+value = lifemax
+ignorehitpause = 1
+[State 40, 柪巕僙儞僞乕傊]
+type = lifeset
+trigger1 = 1
+value = var(36)
+ignorehitpause = 1
+[State 40, 柪巕僙儞僞乕傊]
+type = nothitby
+trigger1 = 1;prevstateno = 11500
+value = SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT
+value2= SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT
+time = 10
+ignorehitpause = 1
+[State 0, SuperPause]
+type = SuperPause
+trigger1 = time = [0,10]
+triggerall = prevstateno = 11500
+time = 5
+anim = 99990
+pos = 0,0
+movetime = 15
+darken = 0
+p2defmul = 1
+poweradd = 0
+unhittable = 1
+ignorehitpause = 1
+
+
+[State 0, VarAdd]
+type = VarAdd
+trigger1 = time = 0
+v = 32
+value = 1
+ignorehitpause = 1
+[State 0, VarSet]
+type = VarSet
+trigger1 = helper(25360),movehit
+v = 32
+value = 0
+ignorehitpause = 1
+
+[State 0, VarAdd]
+type = VarSet
+trigger1 = helper(25360),movehit
+v = 27    ;fv = 
+value = 0
+ignorehitpause = 1
+[State 0, ChangeAnim]
+type = ChangeAnim
+trigger1 = time = 65
+value = 25361
+ignorehitpause = 1
+[State 0, SelfState]
+type = SelfState
+trigger1 =anim = 25361
+trigger1 = animtime = 0
+value = cond(pos y =0,0,50)
+ctrl =1
+ignorehitpause = 1
+[State 0, HitDef]
+type = HitDef
+trigger1 = helper(25360),movehit=0&&!movehit
+attr = ,NA
+hitflag = MAFD
+guardflag =
+animtype = light
+air.animtype = light
+damage = 1*ceil((enemynear,lifemax*0.001)*(enemynear,const(data.defence)*0.01)),0
+pausetime = 0,90
+hitsound = S1,0
+ground.type = High      ;Low,Trip,None
+ground.slidetime = 0
+ground.hittime = 20
+air.hittime = 20
+ground.velocity = 0,0
+air.velocity = 0,0
+sprpriority = 1
+p1getp2facing = 0
+fall = 0
+down.bounce = 0
+id = 0
+chainID = -1
+nochainID = -1
+hitonce = 1
+kill = 1
+guard.kill = 1
+fall.kill = 1
+numhits = 1
+palfx.time = 0
+envshake.time = 0
+fall.envshake.time = 0
+ignorehitpause = 1
+
+[State 0, Helper]
+type = Helper
+trigger1 = !time
+helpertype = normal
+name = ""
+ID = 25360
+stateno = 25360
+pos = 0,0
+postype = p1    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 0
+supermovetime =  99999
+pausemovetime =  99999
+ignorehitpause = 1
+[State 0, PosSet]
+type = PosSet
+trigger1 = numhelper(25360)
+x = helper(25360),pos x
+y = helper(25360),pos y
+ignorehitpause = 1
+
+[statedef 25360]
+anim = 25360
+movetype = A
+
+[State 0, SuperPause]
+type = null;SuperPause
+trigger1 = !time
+time = 5
+anim = 99990
+pos = 0,0
+movetime = 5
+darken = 0
+p2defmul = 1
+poweradd = 0
+unhittable = 1
+ignorehitpause = 1
+
+[State 0, New Speed FX]
+type = Explod
+triggerall = time > 5
+trigger1 = vel x
+trigger2 =!vel x
+trigger2 = cond(time < 31,gametime%45-time,gametime%15)
+anim = 7016
+ID = 7016
+pos = 5-random%25,-5-random%40
+postype = p1
+facing = 1
+vfacing = 1
+bindtime = 3
+vel = -2,0
+removetime = -2
+scale = 0.1,0.1
+sprpriority = 2
+ontop = 1
+ownpal = 1
+removeongethit = 1
+pausemovetime = 9999
+supermovetime = 9999
+ignorehitpause = 1
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 40
+value = S0,5
+volumescale = 990
+channel = 3
+
+[State 0, PlaySnd]
+type = null;PlaySnd
+trigger1 = time = 0
+value = S0,6
+volumescale = 990
+channel = 4
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 42
+value = S0,7
+volumescale = 990
+channel = 5
+[state 0]
+type = posadd
+trigger1 = time = 0;animelem = 2
+x = (p2dist x) -70
+y = p2dist y
+[State 0, HitDef]
+type = HitDef
+trigger1 = !movehit
+attr = ,NA
+hitflag = MAFD
+guardflag =
+animtype = light
+air.animtype = light
+damage = (150+(root,var(32))*150)*ceil((enemynear,lifemax*0.001)*(enemynear,const(data.defence)*0.01)),(100+(root,var(32))*100)*ceil((enemynear,lifemax*0.001)*(enemynear,const(data.defence)*0.01))
+pausetime = 0,0
+hitsound = S1,0
+ground.type = High      ;Low,Trip,None
+ground.slidetime = 0
+ground.hittime = 90
+air.hittime = 20
+ground.velocity = 0,0
+air.velocity = 0,0
+sprpriority = 1
+p1getp2facing = 0
+fall = 0
+down.bounce = 0
+id = 0
+chainID = -1
+nochainID = -1
+hitonce = 1
+kill = 1
+guard.kill = 1
+fall.kill = 1
+numhits = 1
+palfx.time = 0
+envshake.time = 0
+fall.envshake.time = 0
+ignorehitpause = 1
+p2stateno = 2005;30001
+givepower = 0,0
+[State 200, Spark CVS]
+type = Helper
+triggerall = Numhelper(160) = 0
+trigger1 = movehit = 1 
+helpertype = normal
+name = "Hit Spark"
+ID = 160
+stateno = 160
+pos = 56,-25
+postype = p1
+facing = -1
+ownpal = 1
+size.xscale = .1
+size.yscale = .1
+ignorehitpause = 1
+persistent = 5
+supermovetime=99999
+pausemovetime=99999
+[State 200, Spark CVS]
+type = Helper
+triggerall = Numhelper(161) = 0
+trigger1 = movehit = 1 
+helpertype = normal
+name = "Hit Spark"
+ID = 161
+stateno = 161
+pos = 56,-25
+postype = p1
+facing = -1
+ownpal = 1
+size.xscale = .16
+size.yscale = .16
+ignorehitpause = 1
+persistent = 5
+supermovetime=99999
+pausemovetime=99999
+[State 200, Spark CVS]
+type = Helper
+triggerall = Numhelper(161) = 1
+trigger1 = movehit = 1 
+helpertype = normal
+name = "Hit Spark"
+ID = 161
+stateno = 161
+pos = 56,-25
+postype = p1
+facing = -1
+ownpal = 1
+size.xscale = .16
+size.yscale = .16
+ignorehitpause = 1
+persistent = 5
+supermovetime=99999
+pausemovetime=99999
+[State 0, Guard Spark]
+type = Explod
+triggerall = numexplod(7000) = 0
+trigger1 = moveguarded = 1
+anim = 7000
+ID = 7000
+postype = P2
+pos = 8,-30
+facing = 1
+sprpriority = 2
+removetime = -2
+bindtime = 1
+ownpal = 1
+scale = .6,.6
+removeongethit = 1
+ontop = 1
+ignorehitpause = 1
+supermovetime=99999
+pausemovetime=99999
+[State 0, VelSet]
+type = VelSet
+trigger1 = time = [36,50]
+x = 5
+y = 0
+ignorehitpause = 1
+[State 0, VelSet]
+type = VelSet
+trigger1 = time >= 50
+x = 0
+y = 0
+ignorehitpause = 1
+
+[State 0, DestroySelf]
+type = DestroySelf
+trigger1 = animtime = 0
+ignorehitpause = 1
+
+
+
+
+
+;废弃的控制器
+[statedef 483246]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;;;;;;;;;;;;废弃的控制器
+
+
+
+
+
+
+
+
+
+;这段用作检测是否是第一段受击，并且记录概率
+[State 0, Null]
+type = Null
+triggerall = var(7)!=0&&stateno != 11500&&prevstateno != 11500&&!(movereversed&&hitpausetime)
+trigger1 = var(55)=1
+trigger1 = random<10*       (100)              ;括号里的数就是概率
+trigger1 = time = 0                           ;确保不会重复导致概率无用
+trigger1 = (prevstateno !=[5000,5210])||var(7) = 1          ;第一段受击检测
+trigger1 = movetype = H||(stateno=[5000,5210])||(gametime!=var(56))  ;受击检测
+trigger1 = var(54):=1||1                      ;闪避开启
+trigger1 = var(55):=0||1
+trigger1 = var(53):=var(53)-200
+ignorehitpause = 1
+
+
+[State ]
+type = varset
+trigger1 = 1
+var(1) = enemynear,life
+ignorehitpause = 1
+[State ]
+type = varset
+trigger1 = !var(2)||enemynear,life <= 0
+trigger2 = var(2)>var(1)||var(1) = 0
+var(2) = enemynear,life
+ignorehitpause = 1
+[State ]
+type = varset
+triggerall = !var(3)
+trigger1 = var(2) < var(1)
+trigger1 = abs(var(1) - var(2)) = [0,enemynear,lifemax*0.3]
+var(3) = 1
+ignorehitpause = 1
+[State ]
+type = varset
+triggerall = !var(3)||var(3) = 1
+trigger1 = var(2) < var(1)
+trigger1 = abs(var(1) - var(2)) = (enemynear,lifemax*0.3,enemynear,lifemax*0.65)
+var(3) = 2
+ignorehitpause = 1
+[State ]
+type = varset
+triggerall = !var(3)||var(3) = 1||var(3) = 2
+trigger1 = var(2) < var(1)
+trigger1 = abs(var(1) - var(2)) = (enemynear,lifemax*0.65,enemynear,lifemax]
+var(3) = 3
+ignorehitpause = 1
+
+[State ]
+type = targetlifeadd
+triggerall = numtarget
+trigger1 = var(1)<var(0)
+value = ifelse(target,life>0||numhelper(802),-(var(0)-var(1)),-999999)
+ignorehitpause = 1
+
+
+
