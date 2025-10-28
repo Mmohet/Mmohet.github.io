@@ -1,9 +1,5 @@
-## Welcome to Jotaro-SPR Pages
+## Welcome to DD Pages
 
-You can click the >[link](https://github.com/Mmohet/Mmohet.github.io/)< to down the newest characters.
+Privacy Policy
 
-there also >[readme](https://github.com/Mmohet/Mmohet.github.io/blob/character-and-Readme/Characters%20and%20Readme/Readme.txt)< that you can read.
-
-!!The snd and sff is so big so please go to:https://drive.google.com/file/d/18rh6vDTjHR9BlhVQPCrLnQIkIdLKOBFr/view?usp=sharing
-
-I'm trying to make there on it. But now, please use that link to get the character
+This app does not collect, store, or share any personal information. We do not use cookies, analytics, or third-party services that track user behavior. Your privacy is fully respected, and no data is transmitted from the app.
